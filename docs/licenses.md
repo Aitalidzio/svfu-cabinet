@@ -8,4 +8,6 @@
 | React | UI | MIT | https://github.com/facebook/react |
 | Tailwind CSS | стили | MIT | https://github.com/tailwindlabs/tailwindcss |
 | TypeScript | язык | Apache-2.0 | https://github.com/microsoft/TypeScript |
-| Шрифт Geist (временно, из шаблона) | весь интерфейс | SIL OFL 1.1 | https://github.com/vercel/geist-font |
+| Шрифт Onest | весь интерфейс | SIL OFL 1.1 | https://fonts.google.com/specimen/Onest |
+| Lucide (`lucide-react`) | иконки | ISC | https://github.com/lucide-icons/lucide |
+| Логотип (кристалл) | логотип, иконка сайта | собственный рисунок | `src/components/logo.tsx`, `src/app/icon.svg` |
