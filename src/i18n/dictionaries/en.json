@@ -137,6 +137,79 @@
       "even": "even week"
     }
   },
+  "grades": {
+    "lead": "Term {n} · {season} {years}",
+    "seasons": {
+      "autumn": "autumn",
+      "spring": "spring"
+    },
+    "tabsLabel": "Grades section",
+    "tabs": {
+      "term": "This term",
+      "record": "Record book"
+    },
+    "control": {
+      "credit": "Pass/fail",
+      "graded_credit": "Graded credit",
+      "exam": "Exam"
+    },
+    "marks": {
+      "2": "fail",
+      "3": "satisfactory",
+      "4": "good",
+      "5": "excellent"
+    },
+    "points": {
+      "one": "point",
+      "few": "points",
+      "many": "points",
+      "other": "points"
+    },
+    "summary": {
+      "title": "How my studies are going",
+      "onTrack": "{ok} of {total} courses are on track",
+      "attention": "Needs attention",
+      "allGood": "All courses are on track.",
+      "scholarshipNow": "Scholarship after the last exam session:",
+      "scholarshipYes": "granted",
+      "scholarshipNo": "not granted",
+      "forecastOk": "Forecast: everything is heading for 4s and 5s.",
+      "forecastRisk": "Forecast: to get the scholarship, improve {list}.",
+      "rule": "General rule: the academic scholarship requires no 3s and no failed courses in the session.",
+      "session": "Session: credits from {credits}, exams from {exams}."
+    },
+    "hint": {
+      "creditPassed": "Credit already earned",
+      "creditNeed": "{n} {points} short of the credit",
+      "gradedMark": "Currently a {mark} ({markName})",
+      "gradedNext": "{n} {points} to a {mark}",
+      "gradedHasThree": "A 3 is already secured, {n} {points} to a 4",
+      "gradedToFour": "{n} {points} to a 4, {n3} to a 3",
+      "noAdmission": "{n} {points} short of exam admission",
+      "admitted": "Admitted to the exam",
+      "automat": "A 4 can be given without the exam — by agreement with the teacher",
+      "examTarget": "For a {mark}, the exam needs {n} of 30",
+      "examDone": "Total: {total} — {mark}",
+      "remaining": "Up to {n} more {points} ahead",
+      "tooLittleLeft": "Planned work is not enough — ask the teacher about extra assignments."
+    },
+    "breakdown": "Where the points come from",
+    "planned": "upcoming",
+    "awaiting": "awaiting grade",
+    "barLabel": "{points} of {max}, up to {remaining} more ahead",
+    "sessionTitle": "Exam session",
+    "noAdmissionBadge": "not admitted",
+    "record": {
+      "semester": "Term {n}",
+      "average": "average {avg}",
+      "scholarship": "scholarship",
+      "noScholarship": "no scholarship",
+      "passed": "passed",
+      "failed": "failed",
+      "empty": "Marks will appear here after your first exam session."
+    },
+    "noGroup": "Grades are available to students only. Dean's office staff will see grade sheets in their own cabinet, coming in a later stage."
+  },
   "notFound": {
     "title": "Page not found",
     "text": "The link may be outdated or the address may contain a typo."
