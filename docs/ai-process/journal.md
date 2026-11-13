@@ -330,7 +330,15 @@
 |---|---|
 | ![Эрхан](screenshots/06-grades/second-student-desktop.jpg) | ![Сотрудник](screenshots/06-grades/staff-empty-state.jpg) |
 
-📸 Снять человеку: промпт этапа · момент, где ИИ замечает, что правила пугают «тройкой» в середине семестра · результат `npm test`.
+**Скриншоты диалога (снял человек):**
+
+| Промпт | Ответ (часть 1) | Ответ (часть 2) |
+|---|---|---|
+| ![Промпт](screenshots/06-grades/prompt.png) | ![Ответ 1](screenshots/06-grades/otvet1.png) | ![Ответ 2](screenshots/06-grades/otvet2.png) |
+
+| Ответ (часть 3) | `npm test` |
+|---|---|
+| ![Ответ 3](screenshots/06-grades/otvet3.png) | ![Тесты](screenshots/06-grades/npm%20test.png) |
 
 ---
 
@@ -409,8 +417,6 @@
 |---|
 | ![Промпт](screenshots/08-notifications/prompt.png) |
 
-📸 По желанию: ответ агента (`otvet.png`).
-
 ---
 
 ## Этап 9. Экран «Сегодня» — 13.11.2026
@@ -439,4 +445,51 @@
 |---|---|---|
 | ![Scroll](screenshots/09-today/home-desktop-scroll.jpg) | ![Staff](screenshots/09-today/staff-desktop.jpg) | ![Эрхан](screenshots/09-today/second-student-mobile.jpg) |
 
-📸 Снять человеку: промпт · ответ.
+**Скриншоты диалога (снял человек):**
+
+| Промпт этапа |
+|---|
+| ![Промпт](screenshots/09-today/prompt.png) |
+
+---
+
+## Этап 10. Кабинет сотрудника деканата — 13.11.2026
+
+**Инструмент:** Cursor (Composer).
+
+**Промпт (суть):** «Чекни скрин и коммиты. … И да, давай продолжим с кабинетом сотрудника».
+
+**Проверка этапа 9:** три коммита на месте; UI-скрины 432×936 / 1280×800; `prompt.png` есть. Python в проекте не «новый язык стека» — скрипты `tools/check_*.py` с этапа дизайна (Claude).
+
+**Что сделал ИИ:**
+1. Переходы статусов сотрудника и тексты уведомлений — `src/lib/requests.ts` + тесты; валидация объявлений и изменений пар.
+2. Таблица `announcements`, миграция `drizzle/0005_*.sql`, сид (2 объявления ИМИ).
+3. DAL и Server Actions: очередь заявок института, смена статуса → уведомление; публикация объявления → адресатам; `lesson_changes` → группе.
+4. Навигация по роли; экраны `/requests` (очередь), `/announcements`, `/schedule/changes`. Чужой институт / чужой id → 404.
+5. Решение №14, plan, security, i18n-todo, tools (Python + Playwright).
+
+**Проверка:** `npm test` 65, lint, build — ок. После `db:reset` вход `dekanat.imi`: очередь ИМИ без заявки ФТИ; карточка №4 со сменой статуса; объявления и форма изменения пары. `a.egorov` на `/requests/1` → 404.
+
+**Скриншоты UI** (432×936 / 1280×800):
+
+| Очередь (телефон) | Карточка со сменой статуса | Объявления | Изменения пары |
+|---|---|---|---|
+| ![Очередь](screenshots/10-staff/queue-mobile.jpg) | ![Карточка](screenshots/10-staff/request-card-mobile.jpg) | ![Объявления](screenshots/10-staff/announcements-mobile.jpg) | ![Изменения](screenshots/10-staff/changes-mobile.jpg) |
+
+| Очередь desktop | Карточка desktop | Объявления desktop | Изменения desktop |
+|---|---|---|---|
+| ![Q](screenshots/10-staff/queue-desktop.jpg) | ![Card](screenshots/10-staff/request-card-desktop.jpg) | ![Ann](screenshots/10-staff/announcements-desktop.jpg) | ![Ch](screenshots/10-staff/changes-desktop.jpg) |
+
+| Чужой id → 404 (студент ФТИ) |
+|---|
+| ![404](screenshots/10-staff/foreign-request-404-mobile.jpg) |
+
+**Скриншоты диалога и плана (снял человек):**
+
+| Промпт | План (часть 1) | План (часть 2) |
+|---|---|---|
+| ![Промпт](screenshots/10-staff/prompt.png) | ![План 1](screenshots/10-staff/plan1.png) | ![План 2](screenshots/10-staff/plan2.png) |
+
+| План (часть 3) | План (часть 4) |
+|---|---|
+| ![План 3](screenshots/10-staff/plan3.png) | ![План 4](screenshots/10-staff/plan4.png) |
