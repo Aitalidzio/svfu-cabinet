@@ -31,27 +31,46 @@
   },
   "today": {
     "greeting": "Welcome",
-    "lead": "Your study day will live here: the next class, schedule changes, grades and requests — on one screen.",
-    "previewTitle": "What this screen will show",
-    "cards": {
-      "nextClass": {
-        "title": "Next class",
-        "text": "Time, room and teacher."
-      },
-      "changes": {
-        "title": "Changes",
-        "text": "Rescheduled and replaced classes for today and tomorrow."
-      },
-      "grades": {
-        "title": "Needs attention",
-        "text": "Points left until exam admission and when an automatic grade is available."
-      },
-      "requests": {
-        "title": "My requests",
-        "text": "Status of certificates and applications."
-      }
+    "greetingNamed": "Welcome, {name}",
+    "leadStudent": "What matters right now: classes, changes, grades and requests.",
+    "leadStaff": "A short overview for today. Student requests will live in the staff cabinet later.",
+    "dateToday": "Today, {date}",
+    "group": "Group {code}",
+    "lookingAtGroup": "Timetable for group {code}",
+    "sections": {
+      "changes": "Timetable changes",
+      "nextClass": "Now or next",
+      "grades": "Needs attention",
+      "requests": "Active requests",
+      "notifications": "New notifications",
+      "deadlines": "Upcoming deadlines"
     },
-    "greetingNamed": "Welcome, {name}"
+    "when": {
+      "now": "Happening now",
+      "today": "Later today",
+      "tomorrow": "Tomorrow"
+    },
+    "dayLabel": {
+      "today": "Today",
+      "tomorrow": "Tomorrow"
+    },
+    "noClass": "No classes today or tomorrow — you can breathe out.",
+    "noChanges": "No reschedules for today or tomorrow.",
+    "noAttention": "Grades look fine — nothing critical.",
+    "noRequests": "No active requests.",
+    "noNotifications": "No new notifications.",
+    "noDeadlines": "No upcoming deadlines.",
+    "seeSchedule": "Timetable",
+    "seeGrades": "Grades",
+    "seeRequests": "All requests",
+    "seeNotifications": "All notifications",
+    "unreadCount": "{n} new",
+    "deadlineKinds": {
+      "assessment": "Assessment",
+      "session": "Exam period",
+      "request": "Request"
+    },
+    "dueOn": "by {date}"
   },
   "pages": {
     "schedule": "Schedule for today, tomorrow and the week, with clearly marked changes.",
