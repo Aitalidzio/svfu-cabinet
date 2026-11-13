@@ -42,6 +42,8 @@
 
 Этап 8: блок `notifications.*`. В sah частично: `filters.all` = «Барыта», `unread` = «Саҥа», `open` = «Арый», `bellLabel*` — проверить. Тексты самих уведомлений в базе остаются на русском (как объявления).
 
+Этап 9: блок `today.*` переписан под живой экран. В sah: `dateToday`, `when.*`, `dayLabel.*`, `seeGrades`, `seeNotifications`, `unreadCount` — проверить; остальное пока по-русски.
+
 Также после уточнения расписания: `schedule.roomInBuilding`, `schedule.parityOnly.*` (в sah пока смесь/русские заготовки — проверить).
 
 Ограничение по длине: подписи вкладок нижней панели (`nav.today`, `nav.schedule`, `nav.gradesShort`, `nav.requestsShort`, `nav.profile`) должны укладываться примерно в 66 px при размере шрифта 11 px — это около 11 букв.

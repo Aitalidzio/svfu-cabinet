@@ -403,4 +403,40 @@
 |---|---|
 | ![Staff](screenshots/08-notifications/staff-empty-desktop.jpg) | ![Эрхан](screenshots/08-notifications/second-student-mobile.jpg) |
 
-📸 Снять человеку: промпт этапа · ответ агента.
+**Скриншоты диалога (снял человек):**
+
+| Промпт этапа |
+|---|
+| ![Промпт](screenshots/08-notifications/prompt.png) |
+
+📸 По желанию: ответ агента (`otvet.png`).
+
+---
+
+## Этап 9. Экран «Сегодня» — 13.11.2026
+
+**Инструмент:** Cursor (Composer).
+
+**Промпт (суть):** «Проверь скрин и коммиты и идём дальше. Экран Сегодня».
+
+**Проверка этапа 8:** три коммита на месте, лишнего нет; UI-скрины 432×936 / 1280×800; `prompt.png` есть, `otvet.png` по желанию.
+
+**Что сделал ИИ:**
+1. `getTodayOverview()` собирает расписание, баллы, заявки и уведомления без новых таблиц (решение №13).
+2. Экран: приветствие → изменения на сегодня/завтра → текущая/следующая пара → «что горит» → активные заявки → непрочитанные → дедлайны.
+3. Сотрудник видит пару группы института и пояснение, без чужих баллов и заявок.
+4. Словари `today.*` переписаны; план отмечен выполненным.
+
+**Проверка:** `npm test` 51, lint, build — ок.
+
+**Скриншоты UI** (432×936 / 1280×800):
+
+| Верх «Сегодня» | Середина (пара + баллы) | Низ (заявки/уведомления) | Desktop |
+|---|---|---|---|
+| ![Верх](screenshots/09-today/home-top-mobile.jpg) | ![Середина](screenshots/09-today/home-mid-mobile.jpg) | ![Низ](screenshots/09-today/home-bottom-mobile.jpg) | ![Desktop](screenshots/09-today/home-desktop.jpg) |
+
+| Desktop (ниже) | Сотрудник | Другой студент |
+|---|---|---|
+| ![Scroll](screenshots/09-today/home-desktop-scroll.jpg) | ![Staff](screenshots/09-today/staff-desktop.jpg) | ![Эрхан](screenshots/09-today/second-student-mobile.jpg) |
+
+📸 Снять человеку: промпт · ответ.
