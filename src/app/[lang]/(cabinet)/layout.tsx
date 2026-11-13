@@ -1,10 +1,13 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { Bell } from "lucide-react";
 import { ConceptNote } from "@/components/concept-note";
 import { Logo, LogoMark } from "@/components/logo";
 import { LanguageSwitcher } from "@/components/shell/language-switcher";
-import { NavLink } from "@/components/shell/nav-link";
 import { getNavItems } from "@/components/shell/nav-items";
+import { NavLink } from "@/components/shell/nav-link";
+import { NotificationBell } from "@/components/shell/notification-bell";
+import { SidebarNav } from "@/components/shell/sidebar-nav";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">) {
@@ -20,16 +23,7 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
           <Logo name={dict.app.name} tagline={dict.app.tagline} />
         </Link>
         <nav aria-label={dict.nav.label} className="mt-8 flex flex-col gap-1">
-          {items.map((item) => (
-            <NavLink
-              key={item.key}
-              variant="sidebar"
-              href={item.href}
-              exact={item.exact}
-              label={item.label}
-              icon={item.icon}
-            />
-          ))}
+          <SidebarNav items={items} />
         </nav>
         <div className="mt-auto space-y-5 px-1">
           <LanguageSwitcher current={locale} label={dict.language.label} />
@@ -46,13 +40,23 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
           </Link>
           <div className="ml-auto flex shrink-0 items-center gap-1">
             <LanguageSwitcher current={locale} label={dict.language.label} />
-            <Link
-              href={`${home}/notifications`}
-              aria-label={dict.nav.notifications}
-              className="grid size-11 place-items-center rounded-full text-fg-muted transition-colors hover:bg-surface-2 hover:text-fg"
+            <Suspense
+              fallback={
+                <Link
+                  href={`${home}/notifications`}
+                  aria-label={dict.notifications.bellLabel}
+                  className="grid size-11 place-items-center rounded-full text-fg-muted"
+                >
+                  <Bell className="size-5" aria-hidden />
+                </Link>
+              }
             >
-              <Bell className="size-5" aria-hidden />
-            </Link>
+              <NotificationBell
+                locale={locale}
+                label={dict.notifications.bellLabel}
+                labelUnread={dict.notifications.bellLabelUnread}
+              />
+            </Suspense>
           </div>
         </div>
       </header>

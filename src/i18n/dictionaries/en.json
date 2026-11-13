@@ -343,6 +343,26 @@
     "rejectionReason": "Reason",
     "staffOnly": "Requests are submitted by students. Dean's office staff will process them in their own cabinet, coming in a later stage."
   },
+  "notifications": {
+    "lead": "Dean's office news, ready certificates and timetable changes.",
+    "emptyTitle": "No notifications yet",
+    "emptyText": "When a certificate is ready, a class is moved or an announcement appears — it will show up here.",
+    "staffEmpty": "This feed is for students. When staff publish announcements or update request statuses, students get a message automatically.",
+    "filters": {
+      "all": "All",
+      "deanery": "Deanery",
+      "schedule": "Timetable",
+      "requests": "Requests"
+    },
+    "markRead": "Mark as read",
+    "markAllRead": "Mark all as read",
+    "open": "Open",
+    "unread": "New",
+    "emptyFilterTitle": "Nothing in this filter",
+    "emptyFilterText": "No notifications in the selected category.",
+    "bellLabel": "Notifications",
+    "bellLabelUnread": "Notifications, unread: {n}"
+  },
   "notFound": {
     "title": "Page not found",
     "text": "The link may be outdated or the address may contain a typo."

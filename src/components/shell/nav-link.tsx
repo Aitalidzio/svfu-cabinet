@@ -10,9 +10,11 @@ type NavLinkProps = {
   icon: ReactNode;
   exact?: boolean;
   variant: "sidebar" | "tab";
+  /** Unread count for the notifications item (sidebar only). */
+  badge?: number;
 };
 
-export function NavLink({ href, label, icon, exact = false, variant }: NavLinkProps) {
+export function NavLink({ href, label, icon, exact = false, variant, badge = 0 }: NavLinkProps) {
   const pathname = usePathname();
   const active = exact ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
 
@@ -46,7 +48,12 @@ export function NavLink({ href, label, icon, exact = false, variant }: NavLinkPr
       }`}
     >
       {icon}
-      <span className="truncate">{label}</span>
+      <span className="min-w-0 flex-1 truncate">{label}</span>
+      {badge > 0 ? (
+        <span className="grid min-w-5 shrink-0 place-items-center rounded-full bg-danger px-1.5 text-[11px] font-bold leading-5 text-on-primary">
+          {badge > 9 ? "9+" : badge}
+        </span>
+      ) : null}
     </Link>
   );
 }
