@@ -98,6 +98,45 @@
     "logoutEverywhere": "Sign out on all devices",
     "logoutEverywhereHint": "Ends sign-in on your phone, computer and any other device."
   },
+  "schedule": {
+    "tabs": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "week": "Week"
+    },
+    "viewLabel": "Period",
+    "group": "Group",
+    "otherGroup": "You are viewing the schedule of group {group}.",
+    "backToOwn": "Back to my group",
+    "pair": "Class {n}",
+    "room": "room {room}",
+    "kinds": {
+      "lecture": "Lecture",
+      "practice": "Seminar",
+      "lab": "Lab"
+    },
+    "now": "In progress",
+    "today": "Today",
+    "status": {
+      "cancelled": "Cancelled",
+      "movedAway": "Moved",
+      "movedHere": "Rescheduled",
+      "modified": "Changed"
+    },
+    "movedTo": "Moved to {when}",
+    "movedFrom": "Moved from {when}",
+    "noLessons": "No classes",
+    "noLessonsText": "Time to rest or study on your own.",
+    "outOfSemester": "No classes: this day is outside the term.",
+    "hasChanges": "Has changes",
+    "prevWeek": "Previous week",
+    "nextWeek": "Next week",
+    "thisWeek": "Back to this week",
+    "parity": {
+      "odd": "odd week",
+      "even": "even week"
+    }
+  },
   "notFound": {
     "title": "Page not found",
     "text": "The link may be outdated or the address may contain a typo."
