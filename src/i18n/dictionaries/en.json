@@ -110,6 +110,7 @@
     "backToOwn": "Back to my group",
     "pair": "Class {n}",
     "room": "room {room}",
+    "roomInBuilding": "{building}, room {room}",
     "kinds": {
       "lecture": "Lecture",
       "practice": "Seminar",
@@ -135,6 +136,10 @@
     "parity": {
       "odd": "odd week",
       "even": "even week"
+    },
+    "parityOnly": {
+      "odd": "odd weeks",
+      "even": "even weeks"
     }
   },
   "grades": {
@@ -209,6 +214,134 @@
       "empty": "Marks will appear here after your first exam session."
     },
     "noGroup": "Grades are available to students only. Dean's office staff will see grade sheets in their own cabinet, coming in a later stage."
+  },
+  "requests": {
+    "lead": "Certificates and applications online — no queue at the dean's office.",
+    "newRequest": "New request",
+    "active": "Active",
+    "finished": "Completed",
+    "emptyTitle": "No requests yet",
+    "emptyText": "Order a certificate or submit an application — it takes a minute.",
+    "number": "No. {n}",
+    "submittedOn": "submitted {date}",
+    "dueOn": "Ready by: {date}",
+    "readyToPick": "Ready to pick up at the dean's office",
+    "back": "All requests",
+    "chooseTitle": "What do you need?",
+    "kinds": {
+      "certificate": "Certificates",
+      "application": "Applications"
+    },
+    "types": {
+      "study_certificate": {
+        "title": "Certificate of enrolment",
+        "text": "Confirms that you study at the university. Needed for social services, employers, the Social Fund."
+      },
+      "scholarship_certificate": {
+        "title": "Scholarship amount certificate",
+        "text": "Payments over the chosen period."
+      },
+      "financial_aid": {
+        "title": "Application for financial aid",
+        "text": "A one-off payment in a difficult situation."
+      },
+      "student_card": {
+        "title": "Student ID replacement",
+        "text": "If the card is lost, damaged or your name has changed."
+      }
+    },
+    "term": {
+      "certificate": "Ready the next working day",
+      "application": "Reviewed within {n} working days"
+    },
+    "fields": {
+      "purpose": {
+        "label": "What is it for",
+        "options": {
+          "general": "General purpose",
+          "social": "Social services",
+          "pension": "Social Fund",
+          "employer": "Employer"
+        }
+      },
+      "copies": {
+        "label": "Number of copies",
+        "options": {
+          "1": "1",
+          "2": "2",
+          "3": "3"
+        }
+      },
+      "period": {
+        "label": "Period",
+        "options": {
+          "3": "3 months",
+          "6": "6 months",
+          "12": "12 months"
+        }
+      },
+      "reason": {
+        "label": "Reason",
+        "options": {
+          "hardship": "Difficult life situation",
+          "medical": "Medical treatment",
+          "family": "Birth of a child or wedding",
+          "other": "Other"
+        }
+      },
+      "cardReason": {
+        "label": "What happened to the card",
+        "options": {
+          "lost": "Lost",
+          "damaged": "Damaged",
+          "nameChange": "Name changed"
+        }
+      },
+      "comment": {
+        "label": "Comment for the dean's office",
+        "labelRequired": "Describe the situation",
+        "counter": "{n} of {max}",
+        "placeholder": "For example: needed by 20 November"
+      }
+    },
+    "errors": {
+      "required": "Please fill in this field.",
+      "invalid": "Choose an option from the list.",
+      "tooShort": "Please add more detail — at least {min} characters.",
+      "tooLong": "Too long — no more than {max} characters.",
+      "tooMany": "Too many requests today. Try again tomorrow or contact the dean's office.",
+      "forbidden": "Only students can submit requests."
+    },
+    "issuedTo": "Issued to: {name}, group {group}",
+    "pickup": "Pick up at: {place}, Mon–Fri {from}–{to}",
+    "expected": "Expected to be ready: {date}",
+    "submit": "Submit request",
+    "submitting": "Submitting…",
+    "statuses": {
+      "submitted": "Submitted",
+      "in_progress": "In progress",
+      "ready": "Ready",
+      "issued": "Issued",
+      "rejected": "Rejected",
+      "cancelled": "Cancelled"
+    },
+    "statusText": {
+      "submitted": "Request received. The dean's office will pick it up soon.",
+      "in_progress": "The dean's office is preparing the document.",
+      "ready": "The document is ready. Pick it up at the dean's office; bring your student ID.",
+      "issued": "The document has been issued.",
+      "rejected": "The dean's office rejected the request.",
+      "cancelled": "You cancelled the request."
+    },
+    "created": "Request sent. When the document is ready, the status here will change to «Ready».",
+    "details": "Request details",
+    "history": "History",
+    "byStaff": "dean's office",
+    "byYou": "you",
+    "cancel": "Cancel request",
+    "cancelHint": "You can cancel until the dean's office starts working on it.",
+    "rejectionReason": "Reason",
+    "staffOnly": "Requests are submitted by students. Dean's office staff will process them in their own cabinet, coming in a later stage."
   },
   "notFound": {
     "title": "Page not found",
