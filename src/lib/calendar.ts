@@ -85,3 +85,12 @@ export function toMinutes(hhmm: string): number {
   const [h, m] = hhmm.split(":").map(Number);
   return h * 60 + m;
 }
+
+/** The academic year that started in September of this year (2026/27). */
+export const ACADEMIC_YEAR_START = 2026;
+
+/** Season and academic year of a term, given the student's current course (year of study). */
+export function termOf(semester: number, course: number): { season: "autumn" | "spring"; years: string } {
+  const start = ACADEMIC_YEAR_START - (course - Math.ceil(semester / 2));
+  return { season: semester % 2 === 1 ? "autumn" : "spring", years: `${start}/${String(start + 1).slice(2)}` };
+}

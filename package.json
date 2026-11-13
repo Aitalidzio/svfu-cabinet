@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx --test src/lib/*.test.ts",
     "db:generate": "drizzle-kit generate",
     "db:setup": "tsx --conditions=react-server scripts/db-setup.ts",
     "db:reset": "tsx --conditions=react-server scripts/db-setup.ts --reset"
