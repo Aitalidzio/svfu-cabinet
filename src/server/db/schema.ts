@@ -141,3 +141,84 @@ export const lessonChanges = pgTable(
     index("lesson_changes_new_date_idx").on(t.newDate),
   ],
 );
+
+// ─── Grades (БРС) ───────────────────────────────────────────────────────────
+// A course of a group in a term (`disciplines`) has planned assessments; students get points for them.
+// Final marks of past terms live in `record_book` («зачётная книжка»). Rules: src/lib/brs.ts.
+
+export const controlTypeEnum = pgEnum("control_type", ["credit", "graded_credit", "exam"]);
+export const assessmentKindEnum = pgEnum("assessment_kind", ["current", "midterm", "exam"]);
+
+export const disciplines = pgTable(
+  "disciplines",
+  {
+    id: serial("id").primaryKey(),
+    groupId: integer("group_id")
+      .notNull()
+      .references(() => studyGroups.id),
+    subjectId: integer("subject_id")
+      .notNull()
+      .references(() => subjects.id),
+    teacherId: integer("teacher_id")
+      .notNull()
+      .references(() => teachers.id),
+    semester: smallint("semester").notNull(), // 1…8 from the start of studies
+    controlType: controlTypeEnum("control_type").notNull(),
+    sessionDate: date("session_date"), // date of the credit or exam
+    sessionRoom: text("session_room"),
+  },
+  (t) => [uniqueIndex("disciplines_group_subject_semester_uq").on(t.groupId, t.subjectId, t.semester)],
+);
+
+export const assessments = pgTable(
+  "assessments",
+  {
+    id: serial("id").primaryKey(),
+    disciplineId: integer("discipline_id")
+      .notNull()
+      .references(() => disciplines.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    kind: assessmentKindEnum("kind").notNull(),
+    maxPoints: smallint("max_points").notNull(),
+    dueDate: date("due_date").notNull(),
+  },
+  (t) => [index("assessments_discipline_idx").on(t.disciplineId)],
+);
+
+export const assessmentResults = pgTable(
+  "assessment_results",
+  {
+    id: serial("id").primaryKey(),
+    assessmentId: integer("assessment_id")
+      .notNull()
+      .references(() => assessments.id, { onDelete: "cascade" }),
+    studentId: uuid("student_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    points: smallint("points").notNull(),
+    gradedAt: timestamp("graded_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("assessment_results_assessment_student_uq").on(t.assessmentId, t.studentId),
+    index("assessment_results_student_idx").on(t.studentId),
+  ],
+);
+
+export const recordBook = pgTable(
+  "record_book",
+  {
+    id: serial("id").primaryKey(),
+    studentId: uuid("student_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    subjectId: integer("subject_id")
+      .notNull()
+      .references(() => subjects.id),
+    semester: smallint("semester").notNull(),
+    controlType: controlTypeEnum("control_type").notNull(),
+    points: smallint("points").notNull(), // total out of 100
+    mark: smallint("mark"), // 2…5; null for a plain credit
+    passed: boolean("passed").notNull(),
+  },
+  (t) => [uniqueIndex("record_book_student_subject_semester_uq").on(t.studentId, t.subjectId, t.semester)],
+);

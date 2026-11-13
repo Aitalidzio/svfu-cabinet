@@ -14,15 +14,21 @@ import { migrate as migratePostgres } from "drizzle-orm/node-postgres/migrator";
 import type { NodePgDatabase } from "drizzle-orm/node-postgres";
 import { migrate as migratePglite } from "drizzle-orm/pglite/migrator";
 import type { PgliteDatabase } from "drizzle-orm/pglite";
+import { BRS, markFor } from "@/lib/brs";
 import { addDays } from "@/lib/calendar";
 import { hashPassword } from "@/server/auth/password";
+import type { PgTable } from "drizzle-orm/pg-core";
 import { connectDatabase, PGLITE_DIR, type Database } from "@/server/db/client";
 import {
+  assessmentResults,
+  assessments,
+  disciplines,
   institutes,
   lessonChanges,
   lessons,
   studyGroups,
   subjects,
+  recordBook,
   teachers,
   users,
 } from "@/server/db/schema";
@@ -35,10 +41,11 @@ import {
   seedTimetable,
   seedUsers,
 } from "./seed-data";
+import { GRADED_UNTIL, seedDisciplines, seedPlans, seedRecordBook, seedTermPoints, splitPoints } from "./seed-grades";
 
 loadEnvConfig(process.cwd());
 
-async function isEmpty(db: Database, table: typeof users | typeof lessons) {
+async function isEmpty(db: Database, table: PgTable) {
   const [{ n }] = await db.select({ n: count() }).from(table);
   return n === 0;
 }
@@ -140,6 +147,70 @@ async function seedSchedule(db: Database) {
   });
 }
 
+async function seedGrades(db: Database) {
+  await db.transaction(async (tx) => {
+    const names = new Set([
+      ...Object.values(seedDisciplines).flatMap((g) => g.list.map((d) => d.subject)),
+      ...Object.values(seedRecordBook).flatMap((rows) => rows.map((r) => r[1])),
+    ]);
+    await tx.insert(subjects).values([...names].map((name) => ({ name }))).onConflictDoNothing();
+    const subjectId = new Map((await tx.select().from(subjects)).map((s) => [s.name, s.id]));
+    const teacherId = new Map((await tx.select().from(teachers)).map((t) => [t.fullName, t.id]));
+    const groupId = new Map((await tx.select().from(studyGroups)).map((g) => [g.code, g.id]));
+    const students = await tx.select({ id: users.id, login: users.login, groupId: users.groupId }).from(users);
+
+    let assessmentCount = 0;
+    let resultCount = 0;
+    for (const [groupCode, { semester, list }] of Object.entries(seedDisciplines)) {
+      const groupStudents = students.filter((s) => s.groupId === groupId.get(groupCode));
+      for (const d of list) {
+        const [discipline] = await tx
+          .insert(disciplines)
+          .values({
+            groupId: groupId.get(groupCode)!,
+            subjectId: subjectId.get(d.subject)!,
+            teacherId: teacherId.get(d.teacher)!,
+            semester,
+            controlType: d.type,
+            sessionDate: d.sessionDate,
+            sessionRoom: d.sessionRoom,
+          })
+          .returning();
+        const planned = await tx
+          .insert(assessments)
+          .values(seedPlans[d.plan].map((p) => ({ disciplineId: discipline.id, title: p.title, kind: p.kind, maxPoints: p.max, dueDate: p.due })))
+          .returning();
+        assessmentCount += planned.length;
+
+        const graded = planned.filter((a) => a.dueDate <= GRADED_UNTIL);
+        for (const student of groupStudents) {
+          const total = seedTermPoints[student.login]?.[d.subject];
+          if (total === undefined) continue;
+          const parts = splitPoints(total, graded.map((a) => a.maxPoints));
+          await tx.insert(assessmentResults).values(graded.map((a, i) => ({ assessmentId: a.id, studentId: student.id, points: parts[i] })));
+          resultCount += graded.length;
+        }
+      }
+    }
+
+    const records = Object.entries(seedRecordBook).flatMap(([login, rows]) => {
+      const student = students.find((s) => s.login === login)!;
+      return rows.map(([semester, subject, type, points]) => ({
+        studentId: student.id,
+        subjectId: subjectId.get(subject)!,
+        semester,
+        controlType: type,
+        points,
+        mark: type === "credit" ? null : markFor(points),
+        passed: type === "credit" ? points >= BRS.creditPass : markFor(points) >= 3,
+      }));
+    });
+    await tx.insert(recordBook).values(records);
+
+    console.log(`Успеваемость: ${assessmentCount} контрольных, ${resultCount} оценок, ${records.length} записей в зачётках.`);
+  });
+}
+
 async function main() {
   if (process.argv.includes("--reset")) {
     if (process.env.DATABASE_URL) {
@@ -166,6 +237,9 @@ async function main() {
 
   if (await isEmpty(db, lessons)) await seedSchedule(db);
   else console.log("Расписание уже есть — пропускаю.");
+
+  if (await isEmpty(db, disciplines)) await seedGrades(db);
+  else console.log("Успеваемость уже есть — пропускаю.");
 
   await connection.close();
 }
