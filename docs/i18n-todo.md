@@ -32,6 +32,8 @@
 
 `meta.title`, `meta.description`, `concept.note`, `common.soonText`, `today.lead`, `today.previewTitle`, все `today.cards.*`, все `pages.*`, `notFound.text`.
 
+Этап 5: весь блок `schedule.*`, кроме вкладок `schedule.tabs.*` («Бүгүн», «Сарсын», «Нэдиэлэ» — тоже проверить) и `schedule.today`. Дни недели и месяцы берутся из `Intl`, их переводить не нужно, но стоит посмотреть, как они выглядят на `/sah/schedule?view=week`.
+
 Этап 4: весь блок `login.*` (вход, ошибки, преимущества на левой панели) и `profile.*`, кроме трёх строк выше. Важно перевести сообщения об ошибках входа (`login.errors.*`) и кнопки `login.submit`, `profile.logout`.
 
 Ограничение по длине: подписи вкладок нижней панели (`nav.today`, `nav.schedule`, `nav.gradesShort`, `nav.requestsShort`, `nav.profile`) должны укладываться примерно в 66 px при размере шрифта 11 px — это около 11 букв.

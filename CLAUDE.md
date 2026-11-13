@@ -30,6 +30,8 @@
   - Схема — `src/server/db/schema.ts`. После её изменения: `npm run db:generate` (создаёт SQL-миграцию в `drizzle/`, её коммитим), затем `npm run db:setup`.
   - PGlite разрешает только один процесс: перед `db:setup` и `db:reset` останавливай `npm run dev`.
   - Скрипты в `scripts/` запускаются через `tsx --conditions=react-server`, поэтому могут импортировать модули с `server-only`.
+- **Даты и время** — только через `src/lib/calendar.ts`: даты — строки `YYYY-MM-DD`, «сегодня» и «сейчас» считаются по Якутску (`Asia/Yakutsk`), а не по часовому поясу сервера. Перед `new Date()` в серверном компоненте нужен `await io()` (см. `getToday()` в `dal/schedule.ts`).
+- **Форматирование** — `src/lib/format.ts`: `formatDate` / `formatDateRange` (через `Intl`, якутские названия дней и месяцев Node.js знает сам), `fill("{n} пара", { n })` для подстановок в строки словаря, `shortName` для «Фамилия И. О.».
 - Хостинг должен открываться из России без VPN. Варианты сравниваются в docs/decisions.md.
 
 ## Роли
