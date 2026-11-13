@@ -1,6 +1,15 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { CalendarClock, Clock3, FileCheck, Flame } from "lucide-react";
 import { getDictionary } from "@/i18n/dictionaries";
+import { getCurrentUser } from "@/server/dal/user";
+
+// The page shell is prerendered; only the name streams in after the session is checked.
+async function Greeting() {
+  const [user, dict] = await Promise.all([getCurrentUser(), getDictionary()]);
+  const firstName = user?.fullName.split(" ")[1];
+  return <>{firstName ? dict.today.greetingNamed.replace("{name}", firstName) : dict.today.greeting}</>;
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary();
@@ -39,7 +48,11 @@ export default async function TodayPage() {
           <path d="M10 7h12l6 6-12 14L4 13z" />
           <path d="M4 13h24M13 13l3-6 3 6M13 13l3 14 3-14" />
         </svg>
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{dict.today.greeting}</h1>
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <Suspense fallback={dict.today.greeting}>
+            <Greeting />
+          </Suspense>
+        </h1>
         <p className="mt-3 max-w-xl text-base leading-relaxed sm:text-lg">{dict.today.lead}</p>
       </section>
 

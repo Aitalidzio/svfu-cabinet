@@ -50,7 +50,8 @@
         "title": "My requests",
         "text": "Status of certificates and applications."
       }
-    }
+    },
+    "greetingNamed": "Welcome, {name}"
   },
   "pages": {
     "schedule": "Schedule for today, tomorrow and the week, with clearly marked changes.",
@@ -58,6 +59,44 @@
     "requests": "Order certificates and submit applications online, then track their status.",
     "notifications": "Dean's office news, ready certificates and schedule changes.",
     "profile": "Your details, interface language and sign out."
+  },
+  "login": {
+    "title": "Sign in",
+    "lead": "Schedule, grades, certificates and dean's office news — in one place.",
+    "loginLabel": "Login",
+    "passwordLabel": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "errors": {
+      "required": "Enter your login and password.",
+      "invalid": "Wrong login or password.",
+      "throttled": "Too many failed attempts. Try again in 15 minutes."
+    },
+    "features": {
+      "schedule": "Schedule with clearly marked changes",
+      "grades": "Points and hints: to exam admission and automatic grade",
+      "requests": "Certificates online — no queue at the dean's office"
+    }
+  },
+  "profile": {
+    "roles": {
+      "student": "Student",
+      "staff": "Dean's office staff"
+    },
+    "institute": "Institute",
+    "program": "Programme",
+    "course": "Year",
+    "courseValue": "Year {n}",
+    "group": "Group",
+    "recordBook": "Record book number",
+    "login": "Login",
+    "language": "Interface language",
+    "session": "Sign-in",
+    "logout": "Sign out",
+    "logoutEverywhere": "Sign out on all devices",
+    "logoutEverywhereHint": "Ends sign-in on your phone, computer and any other device."
   },
   "notFound": {
     "title": "Page not found",
