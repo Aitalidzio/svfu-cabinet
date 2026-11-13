@@ -22,11 +22,16 @@
 | `common.toHome` | На главную | Сүрүн сирэйгэ | |
 | `today.greeting` | Добро пожаловать | Нөрүөн нөргүй | Подходит ли для интерфейса или звучит слишком торжественно? |
 | `notFound.title` | Страница не найдена | Сирэй көстүбэтэ | |
+| `today.greetingNamed` | Добро пожаловать, {name} | Нөрүөн нөргүй, {name} | `{name}` — имя студента, оставить как есть |
+| `profile.roles.student` | Студент | Устудьуон | Подходит ли заимствование или есть другое слово? |
+| `profile.language` | Язык интерфейса | Интерфейс тыла | |
 
 Также в `src/app/global-not-found.tsx` есть строка «Сирэй көстүбэтэ».
 
 ## Пока на русском — нужен перевод
 
 `meta.title`, `meta.description`, `concept.note`, `common.soonText`, `today.lead`, `today.previewTitle`, все `today.cards.*`, все `pages.*`, `notFound.text`.
+
+Этап 4: весь блок `login.*` (вход, ошибки, преимущества на левой панели) и `profile.*`, кроме трёх строк выше. Важно перевести сообщения об ошибках входа (`login.errors.*`) и кнопки `login.submit`, `profile.logout`.
 
 Ограничение по длине: подписи вкладок нижней панели (`nav.today`, `nav.schedule`, `nav.gradesShort`, `nav.requestsShort`, `nav.profile`) должны укладываться примерно в 66 px при размере шрифта 11 px — это около 11 букв.

@@ -12,14 +12,20 @@
 
 ## Как запустить локально
 
-Нужен Node.js 20.9 или новее.
+Нужен Node.js 20.9 или новее. Отдельная база данных не нужна: локально работает PGlite (PostgreSQL внутри приложения).
 
 ```bash
 npm install
+cp .env.example .env.local   # впишите SEED_DEMO_PASSWORD — пароль демо-аккаунтов
+npm run db:setup             # создаёт базу и демо-аккаунты
 npm run dev
 ```
 
-Откройте http://localhost:3000.
+Откройте http://localhost:3000 и войдите под любым демо-аккаунтом: `s.nikolaeva`, `e.petrov`, `a.egorov` (студенты) или `dekanat.imi` (сотрудник деканата). Пароль — тот, что вы указали в `SEED_DEMO_PASSWORD`. Если поле оставить пустым, скрипт сгенерирует пароль и выведет его в консоль.
+
+На сервере вместо PGlite используется настоящий PostgreSQL: строка подключения задаётся в `DATABASE_URL`.
+
+Как устроены вход и защита данных — [docs/security.md](docs/security.md).
 
 ## Стек
 

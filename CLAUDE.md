@@ -25,7 +25,11 @@
   - `middleware.ts` теперь называется `proxy.ts`;
   - в `next.config.ts` включены `cacheComponents` и `partialPrefetching`, поэтому чтение `cookies()` и сессии должно стоять внутри `<Suspense>` (см. `01-app/02-guides/authentication-with-cache-components.md`).
 - **Три языка: `ru` (основной), `sah` (якутский), `en`.** Все страницы лежат внутри `src/app/[lang]/`, язык читается через `next/root-params` (см. `01-app/02-guides/internationalization.md`). Тексты интерфейса берутся только из словарей `src/i18n/dictionaries/{ru,sah,en}.json`. **Строки прямо в JSX запрещены.** Новый текст сразу добавляй во все три словаря: если перевода пока нет, временно ставь русский и помечай ключ в `docs/i18n-todo.md`.
-- База данных: PostgreSQL через Drizzle ORM. Локально используется PGlite (Postgres прямо в процессе, ставить ничего не нужно), на сервере — настоящий PostgreSQL по `DATABASE_URL`. *Подключается на этапе «БД и вход».*
+- **База данных:** PostgreSQL через Drizzle ORM 0.45 (стабильная ветка, не 1.0-rc). Без `DATABASE_URL` используется PGlite (Postgres прямо в процессе, данные в `.data/pglite`), с `DATABASE_URL` — настоящий PostgreSQL.
+  - Любой запрос — через `const database = await db()` из `@/server/db`. Внутри стоит `await io()`: PGlite считает SQL `now()` по часам JavaScript, и без этого Next.js ругается на `Date.now()` при пререндеринге.
+  - Схема — `src/server/db/schema.ts`. После её изменения: `npm run db:generate` (создаёт SQL-миграцию в `drizzle/`, её коммитим), затем `npm run db:setup`.
+  - PGlite разрешает только один процесс: перед `db:setup` и `db:reset` останавливай `npm run dev`.
+  - Скрипты в `scripts/` запускаются через `tsx --conditions=react-server`, поэтому могут импортировать модули с `server-only`.
 - Хостинг должен открываться из России без VPN. Варианты сравниваются в docs/decisions.md.
 
 ## Роли
@@ -36,13 +40,15 @@
 
 ## Безопасность (обязательно)
 
-1. Данные читаются только через Data Access Layer (`src/server/dal/*`). DAL сам берёт текущего пользователя из сессии. Функции DAL **не принимают** `userId` от клиента.
+1. Данные читаются только через Data Access Layer (`src/server/dal/*`). DAL сам берёт текущего пользователя из сессии (`getCurrentUser()` / `requireUser()` в `dal/user.ts`). Функции DAL **не принимают** `userId` от клиента. `proxy.ts` проверяет только наличие cookie и не ходит в БД.
 2. Каждый Server Action и Route Handler заново проверяет сессию и роль. Спрятанная в интерфейсе кнопка — не защита.
 3. Объект по id (`/requests/[id]`) запрашивается только с условием «владелец = текущий пользователь» или «сотрудник того же института». На чужой объект отвечаем 404, чтобы не раскрывать, что он существует.
 4. Пароли хранятся только в виде хеша с солью (scrypt из `node:crypto`). Сессия — cookie с флагами httpOnly, Secure, SameSite=Lax; в БД лежит хеш токена сессии, а не сам токен.
 5. Секреты хранятся только в `.env*` (они в `.gitignore`) и в переменных окружения сервера. Префикс `NEXT_PUBLIC_` для секретов запрещён. Шаблон без настоящих значений — `.env.example`.
 6. В клиентские компоненты передаём только нужные поля (DTO), а не всю запись из БД.
 7. На неверный логин и на неверный пароль показываем одно и то же сообщение. Попытки входа ограничены (rate limit).
+8. Как это устроено простыми словами — [docs/security.md](docs/security.md). Меняешь вход или доступ к данным — обнови этот файл.
+9. Демо-пароль только в `.env.local` (`SEED_DEMO_PASSWORD`). Не печатай его в ответах и не вставляй в код или документы.
 
 ## Данные
 
@@ -67,6 +73,9 @@
 - `npm run dev` — dev-сервер на http://localhost:3000
 - `npm run build` — продакшен-сборка. Запускай её перед тем, как предложить коммит заметного изменения.
 - `npm run lint` — линтер.
+- `npm run db:setup` — применить миграции и добавить демо-аккаунты, если база пустая.
+- `npm run db:reset` — только для PGlite: удалить локальную базу и создать заново.
+- `npm run db:generate` — SQL-миграция из изменений `schema.ts`.
 
 ## Структура
 
@@ -77,7 +86,13 @@ src/app/[lang]/(cabinet)/     страницы кабинета с навига�
 src/app/global-not-found.tsx  404 для адресов, которых нет вообще
 src/components/               UI-компоненты; shell/ — навигация и переключатель языка
 src/i18n/                     config.ts (список языков), dictionaries.ts, dictionaries/{ru,sah,en}.json
-src/server/                   только серверный код: db, auth, dal (каждый файл импортирует 'server-only') — этап «БД и вход»
+src/app/[lang]/login/         страница входа (вне кабинета, без навигации)
+src/server/db/                schema.ts, client.ts (PGlite или PostgreSQL), index.ts (db())
+src/server/auth/              пароли (scrypt), сессии, ограничение попыток, Server Actions входа и выхода
+src/server/dal/               слой доступа к данным: всё, что читает данные пользователя
+                              (каждый файл в src/server импортирует 'server-only'; исключение — auth/cookie.ts, его читает proxy.ts)
+drizzle/                      SQL-миграции (генерируются, коммитятся)
+scripts/                      db-setup.ts и демо-данные seed-data.ts
 tools/                        скрипты проверки дизайна: якутские буквы в шрифтах, контраст цветов
 docs/                         концепция, требования, план, решения, лицензии
 docs/ai-process/              дневник работы с ИИ, инструменты, скриншоты — материал для отчёта жюри
