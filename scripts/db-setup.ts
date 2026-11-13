@@ -29,6 +29,7 @@ import {
   studyGroups,
   subjects,
   recordBook,
+  notifications,
   requestEvents,
   requests,
   teachers,
@@ -43,6 +44,7 @@ import {
   seedTimetable,
   seedUsers,
 } from "./seed-data";
+import { seedNotifications } from "./seed-notifications";
 import { seedRequests } from "./seed-requests";
 import { GRADED_UNTIL, seedDisciplines, seedPlans, seedRecordBook, seedTermPoints, splitPoints } from "./seed-grades";
 
@@ -254,6 +256,28 @@ async function seedRequestsSection(db: Database) {
   });
 }
 
+async function seedNotificationsSection(db: Database) {
+  await db.transaction(async (tx) => {
+    const people = await tx.select({ id: users.id, login: users.login }).from(users);
+    await tx.insert(notifications).values(
+      seedNotifications.map((n) => {
+        const user = people.find((u) => u.login === n.login)!;
+        return {
+          userId: user.id,
+          category: n.category,
+          title: n.title,
+          body: n.body,
+          href: n.href,
+          createdAt: new Date(n.at),
+          readAt: n.read ? new Date(n.at) : null,
+        };
+      }),
+    );
+    const unread = seedNotifications.filter((n) => !n.read).length;
+    console.log(`Уведомления: ${seedNotifications.length} шт., из них непрочитанных в сиде: ${unread}.`);
+  });
+}
+
 async function main() {
   if (process.argv.includes("--reset")) {
     if (process.env.DATABASE_URL) {
@@ -286,6 +310,9 @@ async function main() {
 
   if (await isEmpty(db, requests)) await seedRequestsSection(db);
   else console.log("Заявки уже есть — пропускаю.");
+
+  if (await isEmpty(db, notifications)) await seedNotificationsSection(db);
+  else console.log("Уведомления уже есть — пропускаю.");
 
   await connection.close();
 }

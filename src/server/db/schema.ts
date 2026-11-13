@@ -1,5 +1,6 @@
 import { boolean, date, index, integer, jsonb, pgEnum, pgTable, serial, smallint, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 // Relative path on purpose: drizzle-kit loads this file outside of Next.js and does not know the "@/" alias.
+import { NOTIFICATION_CATEGORIES } from "../../lib/notifications";
 import { REQUEST_STATUSES, REQUEST_TYPES } from "../../lib/requests";
 
 // Every value stored here is fictional (see CLAUDE.md, «Данные»).
@@ -264,4 +265,31 @@ export const requestEvents = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [index("request_events_request_idx").on(t.requestId, t.createdAt)],
+);
+
+// ─── Notifications ──────────────────────────────────────────────────────────
+// Texts of announcements and event messages stay in Russian (see product.md «Языки»).
+// Category filters and chrome are translated via dictionaries.
+
+export const notificationCategoryEnum = pgEnum("notification_category", NOTIFICATION_CATEGORIES);
+
+export const notifications = pgTable(
+  "notifications",
+  {
+    id: serial("id").primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    category: notificationCategoryEnum("category").notNull(),
+    title: text("title").notNull(),
+    body: text("body").notNull(),
+    // Path without language prefix, e.g. `/requests/1` or `/schedule`. Null = no deep link.
+    href: text("href"),
+    readAt: timestamp("read_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("notifications_user_created_idx").on(t.userId, t.createdAt),
+    index("notifications_user_unread_idx").on(t.userId, t.readAt),
+  ],
 );
