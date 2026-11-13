@@ -9,8 +9,73 @@ export const REQUEST_STATUSES = ["submitted", "in_progress", "ready", "issued", 
 export type RequestStatus = (typeof REQUEST_STATUSES)[number];
 export const ACTIVE_STATUSES: readonly RequestStatus[] = ["submitted", "in_progress", "ready"];
 
+/** Statuses the dean's office may set; students only submit and cancel. */
+export const STAFF_TRANSITIONS: Record<RequestStatus, readonly RequestStatus[]> = {
+  submitted: ["in_progress", "rejected"],
+  in_progress: ["ready", "rejected"],
+  ready: ["issued"],
+  issued: [],
+  rejected: [],
+  cancelled: [],
+};
+
 export function isRequestType(value: string): value is RequestType {
   return (REQUEST_TYPES as readonly string[]).includes(value);
+}
+
+export function isRequestStatus(value: string): value is RequestStatus {
+  return (REQUEST_STATUSES as readonly string[]).includes(value);
+}
+
+export type StatusChangeError = "forbidden" | "invalid" | "reasonRequired" | "noteTooLong";
+
+export type StatusChange =
+  | { ok: true; status: RequestStatus; note: string | null; rejectionReason: string | null }
+  | { ok: false; error: StatusChangeError };
+
+const NOTE_MAX = 500;
+
+/**
+ * Checks a status change by the dean's office. Rejection needs a reason; other transitions may carry
+ * an optional note for the history. Unknown or terminal statuses are rejected.
+ */
+export function validateStatusChange(
+  from: RequestStatus,
+  to: string,
+  input: { note?: string; rejectionReason?: string } = {},
+): StatusChange {
+  if (!isRequestStatus(to)) return { ok: false, error: "invalid" };
+  if (!(STAFF_TRANSITIONS[from] as readonly string[]).includes(to)) return { ok: false, error: "forbidden" };
+
+  if (to === "rejected") {
+    const reason = (input.rejectionReason ?? input.note ?? "").trim();
+    if (!reason) return { ok: false, error: "reasonRequired" };
+    if (reason.length > NOTE_MAX) return { ok: false, error: "noteTooLong" };
+    return { ok: true, status: to, note: reason, rejectionReason: reason };
+  }
+
+  const note = (input.note ?? "").trim();
+  if (note.length > NOTE_MAX) return { ok: false, error: "noteTooLong" };
+  return { ok: true, status: to, note: note || null, rejectionReason: null };
+}
+
+/** Russian texts for the student's notification when the dean's office changes a request status. */
+export function requestStatusNotification(
+  typeTitle: string,
+  status: RequestStatus,
+): { title: string; body: string } | null {
+  switch (status) {
+    case "in_progress":
+      return { title: "Заявка в работе", body: `Деканат взял в работу: «${typeTitle}».` };
+    case "ready":
+      return { title: "Справка готова", body: `«${typeTitle}» готова. Заберите в деканате, с собой — студенческий билет.` };
+    case "issued":
+      return { title: "Документ выдан", body: `«${typeTitle}» отмечена как выданная.` };
+    case "rejected":
+      return { title: "Заявка отклонена", body: `Деканат отклонил заявку «${typeTitle}». Причину смотрите в карточке.` };
+    default:
+      return null;
+  }
 }
 
 type ChoiceField = { name: string; type: "choice"; options: readonly string[]; default?: string };

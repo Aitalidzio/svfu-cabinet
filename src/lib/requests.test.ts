@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { addWorkingDays, isRequestType, validateRequest } from "./requests";
+import {
+  addWorkingDays,
+  isRequestType,
+  requestStatusNotification,
+  validateRequest,
+  validateStatusChange,
+} from "./requests";
 
 describe("срок готовности — рабочие дни", () => {
   it("подана в четверг — готова в пятницу", () => assert.equal(addWorkingDays("2026-11-12", 1), "2026-11-13"));
@@ -47,5 +53,54 @@ describe("проверка формы на сервере", () => {
   it("комментарий обрезается по краям", () => {
     const v = validateRequest("student_card", { cardReason: "lost", comment: "  потерял в автобусе  " });
     assert.deepEqual(v, { ok: true, details: { cardReason: "lost" }, comment: "потерял в автобусе" });
+  });
+});
+
+describe("смена статуса сотрудником", () => {
+  it("подана → в работе", () => {
+    assert.deepEqual(validateStatusChange("submitted", "in_progress"), {
+      ok: true,
+      status: "in_progress",
+      note: null,
+      rejectionReason: null,
+    });
+  });
+  it("подана → готова нельзя", () => {
+    assert.deepEqual(validateStatusChange("submitted", "ready"), { ok: false, error: "forbidden" });
+  });
+  it("в работе → готова с заметкой", () => {
+    assert.deepEqual(validateStatusChange("in_progress", "ready", { note: "  подписана  " }), {
+      ok: true,
+      status: "ready",
+      note: "подписана",
+      rejectionReason: null,
+    });
+  });
+  it("отклонение без причины — ошибка", () => {
+    assert.deepEqual(validateStatusChange("submitted", "rejected", {}), { ok: false, error: "reasonRequired" });
+  });
+  it("отклонение с причиной", () => {
+    assert.deepEqual(validateStatusChange("in_progress", "rejected", { rejectionReason: " нет документов " }), {
+      ok: true,
+      status: "rejected",
+      note: "нет документов",
+      rejectionReason: "нет документов",
+    });
+  });
+  it("готова → выдана", () => {
+    assert.equal(validateStatusChange("ready", "issued").ok, true);
+  });
+  it("выдана и отменена — конечные", () => {
+    assert.deepEqual(validateStatusChange("issued", "ready"), { ok: false, error: "forbidden" });
+    assert.deepEqual(validateStatusChange("cancelled", "in_progress"), { ok: false, error: "forbidden" });
+  });
+  it("неизвестный статус", () => {
+    assert.deepEqual(validateStatusChange("submitted", "hacked"), { ok: false, error: "invalid" });
+  });
+  it("текст уведомления для «готова»", () => {
+    assert.deepEqual(requestStatusNotification("Справка об обучении", "ready"), {
+      title: "Справка готова",
+      body: "«Справка об обучении» готова. Заберите в деканате, с собой — студенческий билет.",
+    });
   });
 });

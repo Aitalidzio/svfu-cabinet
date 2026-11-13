@@ -20,6 +20,7 @@ import { hashPassword } from "@/server/auth/password";
 import type { PgTable } from "drizzle-orm/pg-core";
 import { connectDatabase, PGLITE_DIR, type Database } from "@/server/db/client";
 import {
+  announcements,
   assessmentResults,
   assessments,
   disciplines,
@@ -44,6 +45,7 @@ import {
   seedTimetable,
   seedUsers,
 } from "./seed-data";
+import { seedAnnouncements } from "./seed-announcements";
 import { seedNotifications } from "./seed-notifications";
 import { seedRequests } from "./seed-requests";
 import { GRADED_UNTIL, seedDisciplines, seedPlans, seedRecordBook, seedTermPoints, splitPoints } from "./seed-grades";
@@ -278,6 +280,31 @@ async function seedNotificationsSection(db: Database) {
   });
 }
 
+async function seedAnnouncementsSection(db: Database) {
+  await db.transaction(async (tx) => {
+    const people = await tx
+      .select({ id: users.id, login: users.login, instituteId: users.instituteId })
+      .from(users);
+    const groups = await tx.select({ id: studyGroups.id, code: studyGroups.code }).from(studyGroups);
+    await tx.insert(announcements).values(
+      seedAnnouncements.map((a) => {
+        const author = people.find((u) => u.login === a.authorLogin)!;
+        return {
+          instituteId: author.instituteId,
+          authorId: author.id,
+          title: a.title,
+          body: a.body,
+          audience: a.audience,
+          course: a.course ?? null,
+          groupId: a.groupCode ? (groups.find((g) => g.code === a.groupCode)?.id ?? null) : null,
+          createdAt: new Date(a.at),
+        };
+      }),
+    );
+    console.log(`Объявления: ${seedAnnouncements.length} шт.`);
+  });
+}
+
 async function main() {
   if (process.argv.includes("--reset")) {
     if (process.env.DATABASE_URL) {
@@ -313,6 +340,9 @@ async function main() {
 
   if (await isEmpty(db, notifications)) await seedNotificationsSection(db);
   else console.log("Уведомления уже есть — пропускаю.");
+
+  if (await isEmpty(db, announcements)) await seedAnnouncementsSection(db);
+  else console.log("Объявления уже есть — пропускаю.");
 
   await connection.close();
 }

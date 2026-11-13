@@ -1,5 +1,6 @@
 import { boolean, date, index, integer, jsonb, pgEnum, pgTable, serial, smallint, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 // Relative path on purpose: drizzle-kit loads this file outside of Next.js and does not know the "@/" alias.
+import { ANNOUNCEMENT_AUDIENCES } from "../../lib/announcements";
 import { NOTIFICATION_CATEGORIES } from "../../lib/notifications";
 import { REQUEST_STATUSES, REQUEST_TYPES } from "../../lib/requests";
 
@@ -265,6 +266,31 @@ export const requestEvents = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [index("request_events_request_idx").on(t.requestId, t.createdAt)],
+);
+
+// ─── Announcements (dean's office) ──────────────────────────────────────────
+// Title and body stay in Russian (product.md «Языки»). Recipients are resolved on publish.
+
+export const announcementAudienceEnum = pgEnum("announcement_audience", ANNOUNCEMENT_AUDIENCES);
+
+export const announcements = pgTable(
+  "announcements",
+  {
+    id: serial("id").primaryKey(),
+    instituteId: integer("institute_id")
+      .notNull()
+      .references(() => institutes.id),
+    authorId: uuid("author_id")
+      .notNull()
+      .references(() => users.id),
+    title: text("title").notNull(),
+    body: text("body").notNull(),
+    audience: announcementAudienceEnum("audience").notNull(),
+    course: smallint("course"),
+    groupId: integer("group_id").references(() => studyGroups.id),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("announcements_institute_idx").on(t.instituteId, t.createdAt)],
 );
 
 // ─── Notifications ──────────────────────────────────────────────────────────

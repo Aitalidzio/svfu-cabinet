@@ -36,6 +36,13 @@
       "when": 1794570105332,
       "tag": "0004_daily_black_cat",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1794575187874,
+      "tag": "0005_minor_proteus",
+      "breakpoints": true
     }
   ]
 }
