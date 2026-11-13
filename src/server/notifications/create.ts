@@ -13,7 +13,7 @@ export type NewNotification = {
 };
 
 /**
- * Creates one or more notifications. Used by seed today; later — by the dean's office
+ * Creates one or more notifications. Used by seed and by the dean's office
  * when a request status changes, a class is moved, or an announcement is published.
  * Never accepts a recipient id from the client: callers pass ids resolved on the server.
  */

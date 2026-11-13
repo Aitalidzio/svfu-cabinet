@@ -14,7 +14,7 @@ export type CurrentUser = {
   role: "student" | "staff";
   fullName: string;
   recordBookNumber: string | null;
-  institute: { code: string; name: string };
+  institute: { id: number; code: string; name: string };
   group: { code: string; programCode: string; programName: string; course: number } | null;
 };
 
@@ -33,6 +33,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
       role: users.role,
       fullName: users.fullName,
       recordBookNumber: users.recordBookNumber,
+      instituteId: institutes.id,
       instituteCode: institutes.code,
       instituteName: institutes.name,
       groupCode: studyGroups.code,
@@ -54,7 +55,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     role: row.role,
     fullName: row.fullName,
     recordBookNumber: row.recordBookNumber,
-    institute: { code: row.instituteCode, name: row.instituteName },
+    institute: { id: row.instituteId, code: row.instituteCode, name: row.instituteName },
     group:
       row.groupCode && row.programCode && row.programName && row.course !== null
         ? { code: row.groupCode, programCode: row.programCode, programName: row.programName, course: row.course }

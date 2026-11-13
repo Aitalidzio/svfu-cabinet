@@ -9,12 +9,25 @@ import {
   isRequestType,
   MAX_REQUESTS_PER_DAY,
   REQUEST_CATALOG,
+  requestStatusNotification,
+  type RequestType,
   validateRequest,
+  validateStatusChange,
   type FieldError,
+  type StatusChangeError,
 } from "@/lib/requests";
 import { db } from "@/server/db";
-import { requestEvents, requests } from "@/server/db/schema";
+import { requestEvents, requests, users } from "@/server/db/schema";
 import { getCurrentUser } from "@/server/dal/user";
+import { createNotifications } from "@/server/notifications/create";
+
+/** Russian titles for event notifications (texts stay in the original language). */
+const TYPE_TITLE_RU: Record<RequestType, string> = {
+  study_certificate: "Справка об обучении",
+  scholarship_certificate: "Справка о размере стипендии",
+  financial_aid: "Заявление на материальную помощь",
+  student_card: "Повторная выдача студенческого билета",
+};
 
 export type CreateRequestState =
   | {
@@ -89,4 +102,85 @@ export async function cancelRequest(formData: FormData): Promise<void> {
   });
 
   redirect(`/${locale}/requests/${id}`);
+}
+
+export type UpdateStatusState =
+  | {
+      error?: StatusChangeError | "notFound";
+      values?: { status: string; note: string };
+    }
+  | undefined;
+
+/** Dean's office: change status of a request from a student of the same institute. */
+export async function updateRequestStatus(
+  _previous: UpdateStatusState,
+  formData: FormData,
+): Promise<UpdateStatusState> {
+  const locale = localeFrom(formData);
+  const user = await getCurrentUser();
+  if (!user) redirect(`/${locale}/login`);
+  if (user.role !== "staff") return { error: "forbidden" };
+
+  const id = Number(formData.get("id"));
+  if (!Number.isSafeInteger(id) || id <= 0) return { error: "notFound" };
+
+  const status = String(formData.get("status") ?? "");
+  const note = String(formData.get("note") ?? "");
+  const values = { status, note };
+
+  const database = await db();
+  const [row] = await database
+    .select({
+      id: requests.id,
+      status: requests.status,
+      type: requests.type,
+      studentId: requests.studentId,
+      instituteId: users.instituteId,
+    })
+    .from(requests)
+    .innerJoin(users, eq(requests.studentId, users.id))
+    .where(eq(requests.id, id))
+    .limit(1);
+
+  if (!row || row.instituteId !== user.institute.id) return { error: "notFound" };
+
+  const checked = validateStatusChange(row.status, status, {
+    note,
+    rejectionReason: note,
+  });
+  if (!checked.ok) return { error: checked.error, values };
+
+  await database.transaction(async (tx) => {
+    const [updated] = await tx
+      .update(requests)
+      .set({
+        status: checked.status,
+        rejectionReason: checked.rejectionReason,
+        updatedAt: new Date(),
+      })
+      .where(and(eq(requests.id, id), eq(requests.status, row.status)))
+      .returning({ id: requests.id });
+    if (!updated) return;
+    await tx.insert(requestEvents).values({
+      requestId: id,
+      status: checked.status,
+      note: checked.note,
+      actorId: user.id,
+    });
+  });
+
+  const message = requestStatusNotification(TYPE_TITLE_RU[row.type], checked.status);
+  if (message) {
+    await createNotifications([
+      {
+        userId: row.studentId,
+        category: "requests",
+        title: message.title,
+        body: message.body,
+        href: `/requests/${id}`,
+      },
+    ]);
+  }
+
+  redirect(`/${locale}/requests/${id}?updated=1`);
 }
