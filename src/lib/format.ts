@@ -29,3 +29,13 @@ export function plural(locale: string, n: number, forms: Partial<Record<Intl.LDM
   const category = new Intl.PluralRules(locale).select(n);
   return forms[category] ?? forms.other ?? "";
 }
+
+/** A moment in time (e.g. a status change) shown in Yakutsk time: «11 ноября, 14:02». */
+export function formatDateTime(date: Date, locale: string, withTime = true): string {
+  return new Intl.DateTimeFormat(locale, {
+    timeZone: "Asia/Yakutsk",
+    day: "numeric",
+    month: "long",
+    ...(withTime ? { hour: "2-digit", minute: "2-digit" } : {}),
+  }).format(date);
+}

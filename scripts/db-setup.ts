@@ -29,6 +29,8 @@ import {
   studyGroups,
   subjects,
   recordBook,
+  requestEvents,
+  requests,
   teachers,
   users,
 } from "@/server/db/schema";
@@ -41,6 +43,7 @@ import {
   seedTimetable,
   seedUsers,
 } from "./seed-data";
+import { seedRequests } from "./seed-requests";
 import { GRADED_UNTIL, seedDisciplines, seedPlans, seedRecordBook, seedTermPoints, splitPoints } from "./seed-grades";
 
 loadEnvConfig(process.cwd());
@@ -211,6 +214,46 @@ async function seedGrades(db: Database) {
   });
 }
 
+async function seedRequestsSection(db: Database) {
+  await db.transaction(async (tx) => {
+    const people = await tx
+      .select({ id: users.id, login: users.login, role: users.role, instituteId: users.instituteId })
+      .from(users);
+    let events = 0;
+    for (const r of seedRequests) {
+      const student = people.find((u) => u.login === r.login)!;
+      // Status changes are made by the dean's office of the student's own institute (if it has a demo account).
+      const staff = people.find((u) => u.role === "staff" && u.instituteId === student.instituteId);
+      const last = r.events[r.events.length - 1];
+      const [request] = await tx
+        .insert(requests)
+        .values({
+          studentId: student.id,
+          type: r.type,
+          status: last.status,
+          details: r.details,
+          comment: r.comment,
+          dueDate: r.dueDate,
+          rejectionReason: r.rejectionReason ?? null,
+          createdAt: new Date(r.events[0].at),
+          updatedAt: new Date(last.at),
+        })
+        .returning({ id: requests.id });
+      await tx.insert(requestEvents).values(
+        r.events.map((e) => ({
+          requestId: request.id,
+          status: e.status,
+          note: e.note ?? (e.status === "rejected" ? r.rejectionReason ?? null : null),
+          actorId: e.by === "student" ? student.id : (staff?.id ?? null),
+          createdAt: new Date(e.at),
+        })),
+      );
+      events += r.events.length;
+    }
+    console.log(`Заявки: ${seedRequests.length} заявок, ${events} событий в истории.`);
+  });
+}
+
 async function main() {
   if (process.argv.includes("--reset")) {
     if (process.env.DATABASE_URL) {
@@ -240,6 +283,9 @@ async function main() {
 
   if (await isEmpty(db, disciplines)) await seedGrades(db);
   else console.log("Успеваемость уже есть — пропускаю.");
+
+  if (await isEmpty(db, requests)) await seedRequestsSection(db);
+  else console.log("Заявки уже есть — пропускаю.");
 
   await connection.close();
 }

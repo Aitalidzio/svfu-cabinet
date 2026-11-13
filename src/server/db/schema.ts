@@ -1,4 +1,6 @@
-import { boolean, date, index, integer, pgEnum, pgTable, serial, smallint, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { boolean, date, index, integer, jsonb, pgEnum, pgTable, serial, smallint, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+// Relative path on purpose: drizzle-kit loads this file outside of Next.js and does not know the "@/" alias.
+import { REQUEST_STATUSES, REQUEST_TYPES } from "../../lib/requests";
 
 // Every value stored here is fictional (see CLAUDE.md, «Данные»).
 
@@ -221,4 +223,45 @@ export const recordBook = pgTable(
     passed: boolean("passed").notNull(),
   },
   (t) => [uniqueIndex("record_book_student_subject_semester_uq").on(t.studentId, t.subjectId, t.semester)],
+);
+
+// ─── Requests (справки и заявления) ─────────────────────────────────────────
+// Catalog, validation and due dates: src/lib/requests.ts. Every status change is a row in `request_events`.
+
+export const requestTypeEnum = pgEnum("request_type", REQUEST_TYPES);
+export const requestStatusEnum = pgEnum("request_status", REQUEST_STATUSES);
+
+export const requests = pgTable(
+  "requests",
+  {
+    id: serial("id").primaryKey(),
+    studentId: uuid("student_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    type: requestTypeEnum("type").notNull(),
+    status: requestStatusEnum("status").notNull().default("submitted"),
+    // Validated choices from the form (purpose, copies, …). Never free-form keys.
+    details: jsonb("details").$type<Record<string, string>>().notNull().default({}),
+    comment: text("comment"),
+    dueDate: date("due_date").notNull(),
+    rejectionReason: text("rejection_reason"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("requests_student_idx").on(t.studentId, t.createdAt), index("requests_status_idx").on(t.status)],
+);
+
+export const requestEvents = pgTable(
+  "request_events",
+  {
+    id: serial("id").primaryKey(),
+    requestId: integer("request_id")
+      .notNull()
+      .references(() => requests.id, { onDelete: "cascade" }),
+    status: requestStatusEnum("status").notNull(),
+    note: text("note"),
+    actorId: uuid("actor_id").references(() => users.id), // student or dean's office staff
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("request_events_request_idx").on(t.requestId, t.createdAt)],
 );
