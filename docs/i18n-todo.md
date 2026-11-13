@@ -32,6 +32,8 @@
 
 `meta.title`, `meta.description`, `concept.note`, `common.soonText`, `today.lead`, `today.previewTitle`, все `today.cards.*`, все `pages.*`, `notFound.text`.
 
+Этап 6: весь блок `grades.*`. Слово «балл» по-якутски — `grades.points` = «баал» (после числа не изменяется; проверить). Длинные подсказки (`grades.hint.*`) важнее всего: это главный текст экрана.
+
 Этап 5: весь блок `schedule.*`, кроме вкладок `schedule.tabs.*` («Бүгүн», «Сарсын», «Нэдиэлэ» — тоже проверить) и `schedule.today`. Дни недели и месяцы берутся из `Intl`, их переводить не нужно, но стоит посмотреть, как они выглядят на `/sah/schedule?view=week`.
 
 Этап 4: весь блок `login.*` (вход, ошибки, преимущества на левой панели) и `profile.*`, кроме трёх строк выше. Важно перевести сообщения об ошибках входа (`login.errors.*`) и кнопки `login.submit`, `profile.logout`.
