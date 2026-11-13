@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "title": "NEFU Digital Dean's Office — concept",
+    "description": "A concept of a student account for NEFU: schedule, grades, certificates and notifications in one place."
+  },
+  "app": {
+    "name": "Dean's Office",
+    "tagline": "concept · NEFU"
+  },
+  "concept": {
+    "note": "Contest concept. Not an official NEFU service. All data is fictional."
+  },
+  "nav": {
+    "label": "Account sections",
+    "today": "Today",
+    "schedule": "Schedule",
+    "grades": "Academic progress",
+    "gradesShort": "Grades",
+    "requests": "Requests",
+    "requestsShort": "Requests",
+    "notifications": "Notifications",
+    "profile": "Profile"
+  },
+  "language": {
+    "label": "Interface language"
+  },
+  "common": {
+    "soonTitle": "Coming soon",
+    "soonText": "This section will appear in one of the next stages.",
+    "toHome": "Go to home"
+  },
+  "today": {
+    "greeting": "Welcome",
+    "lead": "Your study day will live here: the next class, schedule changes, grades and requests — on one screen.",
+    "previewTitle": "What this screen will show",
+    "cards": {
+      "nextClass": {
+        "title": "Next class",
+        "text": "Time, room and teacher."
+      },
+      "changes": {
+        "title": "Changes",
+        "text": "Rescheduled and replaced classes for today and tomorrow."
+      },
+      "grades": {
+        "title": "Needs attention",
+        "text": "Points left until exam admission and when an automatic grade is available."
+      },
+      "requests": {
+        "title": "My requests",
+        "text": "Status of certificates and applications."
+      }
+    }
+  },
+  "pages": {
+    "schedule": "Schedule for today, tomorrow and the week, with clearly marked changes.",
+    "grades": "Points per course and hints: to admission, to an automatic grade, to an excellent mark.",
+    "requests": "Order certificates and submit applications online, then track their status.",
+    "notifications": "Dean's office news, ready certificates and schedule changes.",
+    "profile": "Your details, interface language and sign out."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The link may be outdated or the address may contain a typo."
+  }
+}

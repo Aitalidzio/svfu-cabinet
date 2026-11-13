@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
+/*
+  Design tokens. Every colour pair used for text passes WCAG AA (>= 4.5:1)
+  in both themes — see docs/decisions.md, decision 7.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  color-scheme: light;
+  --canvas: #f4f6fb;
+  --surface: #ffffff;
+  --surface-2: #edf1f8;
+  --line: #dfe5ef;
+  --fg: #0e1626;
+  --fg-muted: #586178;
+  --primary: #1f55e6;
+  --on-primary: #ffffff;
+  --primary-soft: #e6edff;
+  --success: #0b7a54;
+  --success-soft: #e1f5ec;
+  --warning: #a34b06;
+  --warning-soft: #fff1d6;
+  --danger: #c42525;
+  --danger-soft: #fde7e7;
+  --aurora: linear-gradient(135deg, #1f55e6 0%, #6a3fe0 55%, #0b7f73 100%);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: dark;
+    --canvas: #0a0f1e;
+    --surface: #111830;
+    --surface-2: #18213d;
+    --line: #253157;
+    --fg: #e7ecf7;
+    --fg-muted: #9aa4bc;
+    --primary: #7c9bff;
+    --on-primary: #0a0f1e;
+    --primary-soft: #1b2a57;
+    --success: #4fd1a0;
+    --success-soft: #10342a;
+    --warning: #f5b451;
+    --warning-soft: #3a2a10;
+    --danger: #ff8a8a;
+    --danger-soft: #3d1a1f;
+    --aurora: linear-gradient(135deg, #2448c2 0%, #5636c8 55%, #0a6f65 100%);
   }
 }
 
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+}
+
+@utility bg-aurora {
+  background-image: var(--aurora);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
