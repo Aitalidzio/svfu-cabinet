@@ -370,4 +370,8 @@
 |---|
 | ![Эрхан](screenshots/07-requests/second-student-list-mobile.jpg) |
 
-📸 Снять человеку: промпт этапа в Cursor · ответ агента (проверка + доводка).
+**Скриншоты диалога (снял человек):**
+
+| Промпт: знакомство с проектом | Промпт: заявки и правила работы | Ответ: разбор и план |
+|---|---|---|
+| ![Промпт 1](screenshots/07-requests/prompt1.png) | ![Промпт 2](screenshots/07-requests/prompt2.png) | ![Ответ](screenshots/07-requests/otvet.png) |
