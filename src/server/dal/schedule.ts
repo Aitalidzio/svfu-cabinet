@@ -26,6 +26,8 @@ export type ScheduleItem = {
   end: string;
   subject: string;
   kind: LessonKind;
+  /** Classes that run only on odd or even weeks («числитель / знаменатель»). */
+  parity: "every" | "odd" | "even";
   room: string;
   teacher: string;
   isNow: boolean;
@@ -137,7 +139,7 @@ export async function getSchedule(options: { groupCode?: string; from: ISODate; 
       for (const l of regular) {
         if (l.dayOfWeek !== dayOfWeek(date) || (l.weekParity !== "every" && l.weekParity !== parity)) continue;
         const change = changes.find((c) => c.lessonId === l.id && c.date === date);
-        const base = { pairNumber: l.pairNumber, ...timing(date, l.pairNumber), subject: l.subject, kind: l.kind, room: l.room, teacher: l.teacher };
+        const base = { pairNumber: l.pairNumber, ...timing(date, l.pairNumber), subject: l.subject, kind: l.kind, parity: l.weekParity, room: l.room, teacher: l.teacher };
 
         if (!change) {
           items.push({ key: `${l.id}-${date}`, ...base, status: "regular" });
@@ -183,6 +185,7 @@ export async function getSchedule(options: { groupCode?: string; from: ISODate; 
         ...timing(date, pairNumber),
         subject: l.subject,
         kind: l.kind,
+        parity: l.weekParity,
         room: c.newRoom ?? l.room,
         teacher: l.teacher,
         status: "movedHere",

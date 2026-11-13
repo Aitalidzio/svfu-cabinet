@@ -15,8 +15,13 @@ const cardStyle: Record<ScheduleItem["status"], string> = {
 
 const chip = "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold";
 
-/** «412» → «ауд. 412», but «Спортзал» and «Актовый зал» stay as they are. */
+/**
+ * «КФЕН 412» → «КФЕН, ауд. 412», «412» → «ауд. 412».
+ * Only an all-caps code counts as a building, so «Лаб. 105», «Спортзал» and «Актовый зал» stay as they are.
+ */
 export function roomLabel(t: T, room: string) {
+  const inBuilding = room.match(/^([A-ZА-ЯЁ]{2,})\s+(\d\S*)$/);
+  if (inBuilding) return fill(t.roomInBuilding, { building: inBuilding[1], room: inBuilding[2] });
   return /^\d/.test(room) ? fill(t.room, { room }) : room;
 }
 
@@ -49,6 +54,9 @@ export function LessonCard({ item, t, locale }: { item: ScheduleItem; t: T; loca
       <div className="min-w-0 flex-1 border-l border-line pl-3">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className={`${chip} bg-surface-2 font-medium text-fg-muted`}>{t.kinds[item.kind]}</span>
+          {item.parity !== "every" ? (
+            <span className={`${chip} bg-primary-soft font-medium text-primary`}>{t.parityOnly[item.parity]}</span>
+          ) : null}
           {statusChip}
           {item.isNow ? <span className={`${chip} bg-primary text-on-primary`}>{t.now}</span> : null}
         </div>
