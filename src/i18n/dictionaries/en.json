@@ -19,7 +19,11 @@
     "requests": "Requests",
     "requestsShort": "Requests",
     "notifications": "Notifications",
-    "profile": "Profile"
+    "profile": "Profile",
+    "announcements": "Announcements",
+    "announcementsShort": "News",
+    "changes": "Changes",
+    "changesShort": "Changes"
   },
   "language": {
     "label": "Interface language"
@@ -33,7 +37,7 @@
     "greeting": "Welcome",
     "greetingNamed": "Welcome, {name}",
     "leadStudent": "What matters right now: classes, changes, grades and requests.",
-    "leadStaff": "A short overview for today. Student requests will live in the staff cabinet later.",
+    "leadStaff": "Overview for today. Student requests, announcements and schedule changes are in the tabs below.",
     "dateToday": "Today, {date}",
     "group": "Group {code}",
     "lookingAtGroup": "Timetable for group {code}",
@@ -360,7 +364,30 @@
     "cancel": "Cancel request",
     "cancelHint": "You can cancel until the dean's office starts working on it.",
     "rejectionReason": "Reason",
-    "staffOnly": "Requests are submitted by students. Dean's office staff will process them in their own cabinet, coming in a later stage."
+    "staffOnly": "Requests are submitted by students. Open the queue from the staff account.",
+    "staff": {
+      "lead": "Queue of certificates and applications from students of your institute.",
+      "queueEmptyTitle": "No requests yet",
+      "queueEmptyText": "When a student submits a request, it will show up here.",
+      "filterAll": "All",
+      "student": "Student",
+      "group": "group {code}",
+      "changeStatus": "Change status",
+      "noteLabel": "Note for the student",
+      "noteHint": "For a rejection, give a reason — the student will see it.",
+      "notePlaceholder": "e.g. certificate signed",
+      "submitStatus": "Save",
+      "submittingStatus": "Saving…",
+      "updated": "Status updated. The student got a notification.",
+      "byStudent": "student",
+      "errors": {
+        "forbidden": "This status change is not allowed.",
+        "invalid": "Pick a status from the list.",
+        "reasonRequired": "Give a reason for rejection.",
+        "noteTooLong": "The note is too long.",
+        "notFound": "Request not found."
+      }
+    }
   },
   "notifications": {
     "lead": "Dean's office news, ready certificates and timetable changes.",
@@ -385,5 +412,65 @@
   "notFound": {
     "title": "Page not found",
     "text": "The link may be outdated or the address may contain a typo."
+  },
+  "announcements": {
+    "lead": "Messages to students of the institute, a course or a group.",
+    "emptyTitle": "No announcements yet",
+    "emptyText": "Publish the first one — recipients will get a notification.",
+    "newTitle": "New announcement",
+    "published": "Announcement published. Students got notifications.",
+    "listTitle": "Published",
+    "titleLabel": "Title",
+    "bodyLabel": "Text",
+    "audienceLabel": "Audience",
+    "audiences": {
+      "institute": "Whole institute",
+      "course": "Course",
+      "group": "Group"
+    },
+    "courseLabel": "Course",
+    "groupLabel": "Group",
+    "submit": "Publish",
+    "submitting": "Publishing…",
+    "studentOnly": "Announcements are published by dean's office staff.",
+    "errors": {
+      "required": "Fill in this field.",
+      "tooLong": "Too long.",
+      "invalid": "Pick an option from the list.",
+      "forbidden": "Only staff can publish.",
+      "groupNotFound": "That group is not in your institute."
+    }
+  },
+  "scheduleChanges": {
+    "lead": "Cancel, move or modify a class — the group gets a notification.",
+    "saved": "Change saved. Students in the group got a notification.",
+    "formTitle": "New change",
+    "groupLabel": "Group",
+    "dateLabel": "Class date",
+    "lessonLabel": "Class",
+    "kindLabel": "Action",
+    "kinds": {
+      "cancelled": "Cancel",
+      "moved": "Move",
+      "modified": "Change room or teacher"
+    },
+    "newDateLabel": "New date",
+    "newPairLabel": "New pair",
+    "newRoomLabel": "New room",
+    "newTeacherLabel": "New teacher",
+    "reasonLabel": "Reason (optional)",
+    "reasonPlaceholder": "e.g. teacher on a trip",
+    "submit": "Save change",
+    "submitting": "Saving…",
+    "pickLesson": "Pick a group and date first",
+    "noLessons": "No classes for this group on that date.",
+    "studentOnly": "Schedule changes are made by dean's office staff.",
+    "openSchedule": "Open schedule",
+    "errors": {
+      "required": "Fill in this field.",
+      "invalid": "Check this value.",
+      "forbidden": "Staff only.",
+      "notFound": "Class not found in your institute."
+    }
   }
 }
