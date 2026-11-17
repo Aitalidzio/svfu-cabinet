@@ -1,0 +1,16 @@
+.node_modules
+.next
+.data
+.git
+.cursor
+docs/ai-process/screenshots
+**/*.md
+!README.md
+.env*
+!.env.example
+!.env.deploy.example
+npm-debug.log*
+*.pem
+.DS_Store
+coverage
+agent-transcripts

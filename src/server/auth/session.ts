@@ -19,7 +19,8 @@ export async function createSession(userId: string): Promise<void> {
 
   (await cookies()).set(SESSION_COOKIE, token, {
     httpOnly: true, // not readable from JavaScript in the browser
-    secure: process.env.NODE_ENV === "production", // HTTPS only on the real site
+    // HTTPS on the real site. Set COOKIE_SECURE=0 only for local Docker smoke over http://localhost.
+    secure: process.env.NODE_ENV === "production" && process.env.COOKIE_SECURE !== "0",
     sameSite: "lax",
     path: "/",
     expires: expiresAt,

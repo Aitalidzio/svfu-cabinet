@@ -1,0 +1,37 @@
+# Local smoke / VPS: app + PostgreSQL.
+# cp .env.example .env.deploy  → fill SEED_DEMO_PASSWORD and POSTGRES_PASSWORD
+# docker compose --env-file .env.deploy up -d --build
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cabinet
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.deploy}
+      POSTGRES_DB: cabinet
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cabinet -d cabinet"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${PUBLISH_PORT:-3000}:3000"
+    environment:
+      DATABASE_URL: postgres://cabinet:${POSTGRES_PASSWORD}@db:5432/cabinet
+      SEED_DEMO_PASSWORD: ${SEED_DEMO_PASSWORD:?set SEED_DEMO_PASSWORD in .env.deploy}
+      NODE_ENV: production
+      # Only for local http://localhost smoke. Leave unset on the real HTTPS server.
+      COOKIE_SECURE: ${COOKIE_SECURE:-}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

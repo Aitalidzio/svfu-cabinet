@@ -493,3 +493,19 @@
 | План (часть 3) | План (часть 4) |
 |---|---|
 | ![План 3](screenshots/10-staff/plan3.png) | ![План 4](screenshots/10-staff/plan4.png) |
+
+---
+
+## Этап 11. Подготовка к хостингу — 16.11.2026
+
+**Инструмент:** Cursor (Composer).
+
+**Промпт (суть):** «Давай начнём хостинг».
+
+**Что сделал ИИ:**
+1. Решение №4: VPS в РФ + Docker Compose (кандидат — Timeweb Cloud), не Vercel.
+2. `output: "standalone"`, `Dockerfile`, `docker-compose.yml` (app + Postgres 16), `docker/entrypoint.sh` (`db:setup` при старте).
+3. Инструкция [docs/deploy.md](../deploy.md); `.env.deploy.example`; `COOKIE_SECURE=0` только для локального http-smoke.
+4. Обновлены README, plan, security.
+
+**Дальше человеку:** создать VPS, прописать секреты, `docker compose up`, повесить HTTPS (Caddy), проверить с мобильного интернета РФ.

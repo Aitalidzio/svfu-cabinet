@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Smaller Docker image: copies only what `next start` needs (see docs/deploy.md).
+  output: "standalone",
   cacheComponents: true,
   // PGlite (local Postgres in WebAssembly) loads its .wasm/.data files from disk at runtime.
   serverExternalPackages: ["@electric-sql/pglite"],
