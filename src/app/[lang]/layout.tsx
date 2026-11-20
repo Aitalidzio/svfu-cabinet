@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Onest } from "next/font/google";
+import { ThemeProvider } from "@/components/shell/theme-provider";
 import { locales } from "@/i18n/config";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import "../globals.css";
@@ -35,8 +36,12 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
   const locale = await getLocale();
 
   return (
-    <html lang={locale} className={`${onest.variable} h-full antialiased`}>
-      <body className="min-h-full font-sans">{children}</body>
+    // Do not put <script> here: language soft-nav re-renders this layout and React 19
+    // rejects script tags on the client. ThemeProvider applies the cookie before paint.
+    <html lang={locale} suppressHydrationWarning className={`${onest.variable} h-full antialiased`}>
+      <body className="min-h-full font-sans">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

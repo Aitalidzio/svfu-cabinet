@@ -9,6 +9,10 @@
 - Ранее проверенные ключи (nav, greeting, profile.student и т. д.) — ок.
 - `Расписание` / `Профиль` — заимствования оставляем.
 
+## Тема (21.11.2026)
+
+Новые ключи `theme.*` и `profile.theme` — вычитать саха: «Оформление тематы», «Сырдык», «Хараҥа», «Система курдук».
+
 ## Доперевод 21.11.2026 — нужно вычитать
 
 Переведены блоки, которые ещё были по-русски: `meta`, `concept`, `login.*`, `profile.*`, `today.*`, `pages.*`, `schedule.*`, `grades.*` (подсказки и сводка), `requests.*` (+ staff), `notifications.*`, `announcements.*`, `scheduleChanges.*`, `notFound.text`, `nav.announcements*` / `nav.changes*`.

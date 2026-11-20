@@ -3,6 +3,7 @@ import { BookOpen, Building2, GraduationCap, IdCard, LogOut, MonitorSmartphone, 
 import { PageHeader } from "@/components/page-header";
 import { sectionMetadata } from "@/components/section-placeholder";
 import { LanguageSwitcher } from "@/components/shell/language-switcher";
+import { ThemeSwitcher } from "@/components/shell/theme-switcher";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import { logout, logoutEverywhere } from "@/server/auth/actions";
 import { requireUser } from "@/server/dal/user";
@@ -82,6 +83,13 @@ async function ProfileDetails() {
           <h2 className="font-semibold">{t.language}</h2>
           <div className="mt-3 w-fit">
             <LanguageSwitcher current={locale} label={t.language} />
+          </div>
+        </Card>
+
+        <Card>
+          <h2 className="font-semibold">{t.theme}</h2>
+          <div className="mt-3 w-fit">
+            <ThemeSwitcher labels={dict.theme} />
           </div>
         </Card>
 

@@ -3,6 +3,7 @@ import { ConceptNote } from "@/components/concept-note";
 import { Logo, LogoMark } from "@/components/logo";
 import { LanguageSwitcher } from "@/components/shell/language-switcher";
 import { HeaderBell, RoleSidebarNav, RoleTabBar } from "@/components/shell/role-nav";
+import { ThemeSwitcher } from "@/components/shell/theme-switcher";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">) {
@@ -18,8 +19,9 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
         <nav aria-label={dict.nav.label} className="mt-8 flex flex-col gap-1">
           <RoleSidebarNav locale={locale} dict={dict} />
         </nav>
-        <div className="mt-auto space-y-5 px-1">
+        <div className="mt-auto space-y-3 px-1">
           <LanguageSwitcher current={locale} label={dict.language.label} />
+          <ThemeSwitcher labels={dict.theme} />
           <ConceptNote text={dict.concept.note} />
         </div>
       </aside>
@@ -32,6 +34,7 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
           </Link>
           <div className="ml-auto flex shrink-0 items-center gap-1">
             <LanguageSwitcher current={locale} label={dict.language.label} />
+            <ThemeSwitcher labels={dict.theme} />
             <HeaderBell locale={locale} dict={dict} />
           </div>
         </div>

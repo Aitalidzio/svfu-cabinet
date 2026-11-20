@@ -81,7 +81,7 @@
     "grades": "Points per course and hints: to admission, to an automatic grade, to an excellent mark.",
     "requests": "Order certificates and submit applications online, then track their status.",
     "notifications": "Dean's office news, ready certificates and schedule changes.",
-    "profile": "Your details, interface language and sign out."
+    "profile": "Your details, language, theme, and sign-out."
   },
   "login": {
     "title": "Sign in",
@@ -119,7 +119,8 @@
     "session": "Sign-in",
     "logout": "Sign out",
     "logoutEverywhere": "Sign out on all devices",
-    "logoutEverywhereHint": "Ends sign-in on your phone, computer and any other device."
+    "logoutEverywhereHint": "Ends sign-in on your phone, computer and any other device.",
+    "theme": "Color theme"
   },
   "schedule": {
     "tabs": {
@@ -472,5 +473,11 @@
       "forbidden": "Staff only.",
       "notFound": "Class not found in your institute."
     }
+  },
+  "theme": {
+    "label": "Color theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
   }
 }
