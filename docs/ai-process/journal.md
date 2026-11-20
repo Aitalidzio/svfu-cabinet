@@ -543,9 +543,9 @@
 
 **Скриншоты диалога** (папка [12-dorabotki](screenshots/12-dorabotki/)):
 
-| Промпт (саха / СВФУ) |
-|---|
-| ![Саха](screenshots/12-dorabotki/prompt-sah.png) |
+| Промпт (саха / СВФУ) | Продолжение |
+|---|---|
+| ![Саха 1](screenshots/12-dorabotki/prompt-sah1.png) | ![Саха 2](screenshots/12-dorabotki/prompt-sah2.png) |
 
 ---
 
@@ -593,3 +593,15 @@
 | Запрос темы | Баги переключателя | Ошибка script при смене языка |
 |---|---|---|
 | ![Тема 1](screenshots/12-dorabotki/prompt-theme1.png) | ![Тема 2](screenshots/12-dorabotki/prompt-theme2.png) | ![Тема 3](screenshots/12-dorabotki/prompt-theme3.png) |
+
+---
+
+## Этап 16. Мелкие правки UI — 21.11.2026
+
+**Инструмент:** Cursor (Composer).
+
+**Промпты (суть):** подписи языка «РУС САХ ENG»; счётчик колокольчика не обновлялся после «прочитано».
+
+**Что сделал ИИ:**
+1. `localeNames.short`: РУС / САХ / ENG.
+2. После `markNotificationRead` / `markAll` / `openNotification` — `revalidatePath(/${lang}, "layout")`, чтобы колокольчик и бейдж в сайдбаре сразу пересчитались (список и так обновлялся, layout кэшировался).

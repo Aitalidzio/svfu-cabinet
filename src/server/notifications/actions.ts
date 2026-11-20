@@ -1,6 +1,7 @@
 "use server";
 
 import { and, eq, isNull } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { defaultLocale, hasLocale, type Locale } from "@/i18n/config";
 import { notificationHref } from "@/lib/notifications";
@@ -23,6 +24,11 @@ function returnTo(formData: FormData, locale: Locale): string {
   return safeAppPath(String(formData.get("returnTo") ?? ""), locale, `/${locale}/notifications`);
 }
 
+/** Bell + sidebar badge live in the cabinet layout — refresh it after a read. */
+function refreshNotificationChrome(locale: Locale) {
+  revalidatePath(`/${locale}`, "layout");
+}
+
 async function markOwnRead(userId: string, id: number): Promise<string | null> {
   if (!Number.isSafeInteger(id) || id <= 0) return null;
   const [row] = await (await db())
@@ -40,6 +46,7 @@ export async function markNotificationRead(formData: FormData): Promise<void> {
   if (!user) redirect(`/${locale}/login`);
 
   await markOwnRead(user.id, Number(formData.get("id")));
+  refreshNotificationChrome(locale);
   redirect(returnTo(formData, locale));
 }
 
@@ -53,6 +60,7 @@ export async function openNotification(formData: FormData): Promise<void> {
   if (!user) redirect(`/${locale}/login`);
 
   const href = await markOwnRead(user.id, Number(formData.get("id")));
+  refreshNotificationChrome(locale);
   const target = notificationHref(locale, href);
   redirect(target ?? returnTo(formData, locale));
 }
@@ -68,5 +76,6 @@ export async function markAllNotificationsRead(formData: FormData): Promise<void
     .set({ readAt: new Date() })
     .where(and(eq(notifications.userId, user.id), isNull(notifications.readAt)));
 
+  refreshNotificationChrome(locale);
   redirect(returnTo(formData, locale));
 }

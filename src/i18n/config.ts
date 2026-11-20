@@ -11,7 +11,7 @@ export function hasLocale(value: string): value is Locale {
 }
 
 export const localeNames: Record<Locale, { short: string; native: string }> = {
-  ru: { short: "RU", native: "Русский" },
+  ru: { short: "РУС", native: "Русский" },
   sah: { short: "САХ", native: "Саха тыла" },
-  en: { short: "EN", native: "English" },
+  en: { short: "ENG", native: "English" },
 };
