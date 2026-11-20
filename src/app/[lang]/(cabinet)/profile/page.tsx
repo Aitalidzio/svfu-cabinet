@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { sectionMetadata } from "@/components/section-placeholder";
 import { LanguageSwitcher } from "@/components/shell/language-switcher";
 import { ThemeSwitcher } from "@/components/shell/theme-switcher";
+import { TaasProfileRow } from "@/components/taas/taas-profile-row";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import { logout, logoutEverywhere } from "@/server/auth/actions";
 import { requireUser } from "@/server/dal/user";
@@ -91,6 +92,11 @@ async function ProfileDetails() {
           <div className="mt-3 w-fit">
             <ThemeSwitcher labels={dict.theme} />
           </div>
+        </Card>
+
+        <Card>
+          <h2 className="font-semibold">{t.taas}</h2>
+          <TaasProfileRow labels={dict.taas} />
         </Card>
 
         <Card>

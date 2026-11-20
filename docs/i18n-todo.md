@@ -13,6 +13,10 @@
 
 Новые ключи `theme.*` и `profile.theme` — вычитать саха: «Оформление тематы», «Сырдык», «Хараҥа», «Система курдук».
 
+## Маскот Таас (21.11.2026)
+
+Новые ключи `taas.*`, `profile.taas`, `taas.tapHint`, `taas.lines.tap1–tap12`, `welcomeBack`, `themeLight`, `themeDark`, `intro` — вычитать саха.
+
 ## Доперевод 21.11.2026 — нужно вычитать
 
 Переведены блоки, которые ещё были по-русски: `meta`, `concept`, `login.*`, `profile.*`, `today.*`, `pages.*`, `schedule.*`, `grades.*` (подсказки и сводка), `requests.*` (+ staff), `notifications.*`, `announcements.*`, `scheduleChanges.*`, `notFound.text`, `nav.announcements*` / `nav.changes*`.

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Onest } from "next/font/google";
 import { ThemeProvider } from "@/components/shell/theme-provider";
+import { TaasProvider } from "@/components/taas/taas-provider";
 import { locales } from "@/i18n/config";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import "../globals.css";
@@ -40,7 +41,9 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
     // rejects script tags on the client. ThemeProvider applies the cookie before paint.
     <html lang={locale} suppressHydrationWarning className={`${onest.variable} h-full antialiased`}>
       <body className="min-h-full font-sans">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <TaasProvider>{children}</TaasProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

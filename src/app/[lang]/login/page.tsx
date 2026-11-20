@@ -6,6 +6,8 @@ import { ConceptNote } from "@/components/concept-note";
 import { Logo, LogoMark } from "@/components/logo";
 import { LanguageSwitcher } from "@/components/shell/language-switcher";
 import { ThemeSwitcher } from "@/components/shell/theme-switcher";
+import { TaasLogin } from "@/components/taas/taas-login";
+import { TaasToggle } from "@/components/taas/taas-toggle";
 import type { Locale } from "@/i18n/config";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 import { getCurrentUser } from "@/server/dal/user";
@@ -73,6 +75,7 @@ export default async function LoginPage() {
           <div className="flex shrink-0 flex-wrap items-center justify-end gap-1">
             <LanguageSwitcher current={locale} label={dict.language.label} />
             <ThemeSwitcher labels={dict.theme} />
+            <TaasToggle labels={dict.taas} />
           </div>
         </div>
 
@@ -87,6 +90,8 @@ export default async function LoginPage() {
 
         <ConceptNote text={dict.concept.note} className="mx-auto w-full max-w-sm" />
       </section>
+
+      <TaasLogin labels={dict.taas} />
     </main>
   );
 }

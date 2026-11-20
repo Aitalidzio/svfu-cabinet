@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs><linearGradient id="sleepgem" x1="12" y1="8" x2="52" y2="60" gradientUnits="userSpaceOnUse">
+    <stop offset="0%" stop-color="#8eb0ff"/>
+    <stop offset="40%" stop-color="#9b6ef5"/>
+    <stop offset="75%" stop-color="#3ecfbf"/>
+    <stop offset="100%" stop-color="#1aa88a"/>
+  </linearGradient></defs>
+  <g stroke="#3b2f9e" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="url(#sleepgem)" d="M20 14h24l12 12-24 28L8 26z"/>
+    <path fill="none" d="M8 26h48M26 26l6-12 6 12M26 26l6 28 6-28"/>
+  </g>
+  <g>
+    <path d="M15.2 24.4 Q 21.2 30 27.2 24.4" fill="none" stroke="#0a0f1e" stroke-width="2.9" stroke-linecap="round"/>
+    <path d="M36.8 24.4 Q 42.8 30 48.8 24.4" fill="none" stroke="#0a0f1e" stroke-width="2.9" stroke-linecap="round"/>
+    <g>
+      <path fill="none" stroke="#7c3aed" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"
+    d="M 41.375 15.575 H 46.125 L 41.375 20.325 H 46.125"/>
+      <path fill="none" stroke="#7c3aed" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"
+    d="M 46.875 9.475 H 52.62499999999999 L 46.875 15.225000000000001 H 52.62499999999999"/>
+      <path fill="none" stroke="#7c3aed" stroke-width="2.05" stroke-linecap="round" stroke-linejoin="round"
+    d="M 52.375 3.275 H 59.12500000000001 L 52.375 10.024999999999999 H 59.12500000000001"/>
+    </g>
+  </g>
+</svg>

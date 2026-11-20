@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs><linearGradient id="neutralgem" x1="12" y1="8" x2="52" y2="60" gradientUnits="userSpaceOnUse">
+    <stop offset="0%" stop-color="#8eb0ff"/>
+    <stop offset="40%" stop-color="#9b6ef5"/>
+    <stop offset="75%" stop-color="#3ecfbf"/>
+    <stop offset="100%" stop-color="#1aa88a"/>
+  </linearGradient></defs>
+  <g stroke="#3b2f9e" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="url(#neutralgem)" d="M20 14h24l12 12-24 28L8 26z"/>
+    <path fill="none" d="M8 26h48M26 26l6-12 6 12M26 26l6 28 6-28"/>
+  </g>
+  <g>
+    <circle cx="21.2" cy="24.2" r="5.7" fill="#ffffff" stroke="#0a0f1e" stroke-width="1.95"/>
+    <circle cx="42.8" cy="24.2" r="5.7" fill="#ffffff" stroke="#0a0f1e" stroke-width="1.95"/>
+    <circle cx="21.2" cy="24.2" r="3.45" fill="#0a0f1e"/>
+    <circle cx="42.8" cy="24.2" r="3.45" fill="#0a0f1e"/>
+  </g>
+</svg>

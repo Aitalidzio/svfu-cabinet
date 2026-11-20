@@ -120,7 +120,8 @@
     "logout": "Sign out",
     "logoutEverywhere": "Sign out on all devices",
     "logoutEverywhereHint": "Ends sign-in on your phone, computer and any other device.",
-    "theme": "Color theme"
+    "theme": "Color theme",
+    "taas": "Taas the mascot"
   },
   "schedule": {
     "tabs": {
@@ -479,5 +480,48 @@
     "system": "System",
     "light": "Light",
     "dark": "Dark"
+  },
+  "taas": {
+    "name": "Taas",
+    "label": "Taas the mascot",
+    "on": "Taas is on",
+    "off": "Taas is off",
+    "bubble": "Taas says",
+    "tapHint": "Talk to Taas",
+    "section": "Mascot",
+    "lines": {
+      "intro": "Hi! I’m Taas — the cabinet’s living diamond. Sign in and I’ll keep you company.",
+      "hello": "Hi! I’m Taas — keeping an eye on what matters today.",
+      "night": "Late in Yakutsk… rest a bit; classes can wait.",
+      "unread": "You’ve got a new notification — check the bell.",
+      "danger": "Grades need attention. Open Scores — we’ll sort it out.",
+      "warning": "Some courses need a push. You’ve got this.",
+      "happyGrades": "Grades look calm. Keep it up!",
+      "ready": "Your certificate is ready — pick it up at the dean’s office.",
+      "staffQueue": "There are requests in the queue. Students are waiting.",
+      "staffOk": "The queue is quiet. You can breathe.",
+      "schedule": "Checking the timetable. Watch for moves.",
+      "grades": "Scores explain themselves — I’m right here.",
+      "requests": "Requests are under control.",
+      "notifications": "Reading dean’s office news.",
+      "profile": "You can turn me off here if I’m in the way.",
+      "announcements": "A new announcement — students will hear it themselves.",
+      "changes": "Class moved — the group will get a notification.",
+      "tap1": "Hey! Still here — no worries.",
+      "tap2": "A diamond outlasts exam week. Almost.",
+      "tap3": "You tapped me — I’m already proud.",
+      "tap4": "Few jokes, but from the heart.",
+      "tap5": "Need me? Bottom-right. Always.",
+      "tap6": "Again? Fine — I don’t mind.",
+      "tap7": "Faceted outside, soft inside. That’s ok.",
+      "tap8": "Zzz… kidding. I don’t sleep in class.",
+      "tap9": "NEFU is huge. I’m pocket-sized.",
+      "tap10": "I count scores faster than I blink.",
+      "tap11": "Easy — I’m still a rock.",
+      "tap12": "Ok, stop tickling the diamond.",
+      "welcomeBack": "I'm back! Missed the cabinet — and you.",
+      "themeLight": "Light theme! My gem eyes can rest.",
+      "themeDark": "Dark theme — with a white outline I'm easier to spot."
+    }
   }
 }

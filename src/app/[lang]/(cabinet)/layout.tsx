@@ -4,6 +4,8 @@ import { Logo, LogoMark } from "@/components/logo";
 import { LanguageSwitcher } from "@/components/shell/language-switcher";
 import { HeaderBell, RoleSidebarNav, RoleTabBar } from "@/components/shell/role-nav";
 import { ThemeSwitcher } from "@/components/shell/theme-switcher";
+import { TaasHost } from "@/components/taas/taas-host";
+import { TaasToggle } from "@/components/taas/taas-toggle";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">) {
@@ -21,7 +23,10 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
         </nav>
         <div className="mt-auto space-y-3 px-1">
           <LanguageSwitcher current={locale} label={dict.language.label} />
-          <ThemeSwitcher labels={dict.theme} />
+          <div className="flex items-center gap-2">
+            <ThemeSwitcher labels={dict.theme} />
+            <TaasToggle labels={dict.taas} />
+          </div>
           <ConceptNote text={dict.concept.note} />
         </div>
       </aside>
@@ -35,6 +40,7 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
           <div className="ml-auto flex shrink-0 items-center gap-1">
             <LanguageSwitcher current={locale} label={dict.language.label} />
             <ThemeSwitcher labels={dict.theme} />
+            <TaasToggle labels={dict.taas} />
             <HeaderBell locale={locale} dict={dict} />
           </div>
         </div>
@@ -50,6 +56,7 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
       </div>
 
       <RoleTabBar locale={locale} dict={dict} />
+      <TaasHost dict={dict} />
     </div>
   );
 }

@@ -26,3 +26,11 @@ export function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
   document.cookie = `${THEME_COOKIE}=${encodeURIComponent(theme)}; path=/; max-age=31536000; samesite=lax`;
 }
+
+/** Effective light/dark after resolving `system` against the OS. */
+export function resolveAppearance(theme: Theme): "light" | "dark" {
+  if (theme === "light") return "light";
+  if (theme === "dark") return "dark";
+  if (typeof window === "undefined") return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
