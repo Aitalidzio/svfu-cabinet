@@ -236,7 +236,7 @@
       "failed": "failed",
       "empty": "Marks will appear here after your first exam session."
     },
-    "noGroup": "Grades are available to students only. Dean's office staff will see grade sheets in their own cabinet, coming in a later stage."
+    "noGroup": "Grades are for students only. Staff use the request queue, announcements, and schedule changes."
   },
   "requests": {
     "lead": "Certificates and applications online — no queue at the dean's office.",
