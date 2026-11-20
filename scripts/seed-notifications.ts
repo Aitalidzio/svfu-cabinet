@@ -13,7 +13,6 @@ export type SeedNotification = {
 };
 
 export const seedNotifications: SeedNotification[] = [
-  // ── Sardaana (ПИ-24-1) ────────────────────────────────────────────────────
   {
     login: "s.nikolaeva",
     category: "requests",
@@ -50,8 +49,6 @@ export const seedNotifications: SeedNotification[] = [
     at: "2026-10-22T13:20:00+09:00",
     read: true,
   },
-
-  // ── Erkhan (same group) ───────────────────────────────────────────────────
   {
     login: "e.petrov",
     category: "requests",
@@ -65,7 +62,7 @@ export const seedNotifications: SeedNotification[] = [
     login: "e.petrov",
     category: "schedule",
     title: "Изменение в расписании на эту неделю",
-    body: "У группы ПИ-24-1 перенесена пара и заменён преподаватель. Откройте расписание, чтобы увидеть «было → стало».",
+    body: "У группы ПИ-24-2 есть перенос пары. Откройте расписание, чтобы увидеть «было → стало».",
     href: "/schedule?view=week",
     at: "2026-11-10T18:05:00+09:00",
     read: true,
@@ -79,8 +76,6 @@ export const seedNotifications: SeedNotification[] = [
     at: "2026-11-11T11:20:00+09:00",
     read: true,
   },
-
-  // ── Aysen (ФТИ) ───────────────────────────────────────────────────────────
   {
     login: "a.egorov",
     category: "requests",
@@ -98,5 +93,59 @@ export const seedNotifications: SeedNotification[] = [
     href: "/grades",
     at: "2026-11-08T16:40:00+09:00",
     read: false,
+  },
+  {
+    login: "m.semenova",
+    category: "deanery",
+    title: "Лабораторный практикум",
+    body: "Группа Ф-24-1: сдача лабораторных по оптике перенесена на 20 ноября, лаб. 107.",
+    href: null,
+    at: "2026-11-13T09:00:00+09:00",
+    read: false,
+  },
+  {
+    login: "m.semenova",
+    category: "schedule",
+    title: "Изменение в расписании",
+    body: "У группы Ф-24-1 отменена пара по квантовой механике. Подробности — в расписании.",
+    href: "/schedule?view=week",
+    at: "2026-11-10T17:30:00+09:00",
+    read: true,
+  },
+  {
+    login: "a.ivanov",
+    category: "deanery",
+    title: "День открытых дверей ФЭИ",
+    body: "15 ноября с 10:00 до 16:00 — день открытых дверей. Студентов-волонтёров ждут в деканате.",
+    href: null,
+    at: "2026-11-10T12:00:00+09:00",
+    read: false,
+  },
+  {
+    login: "k.vasileva",
+    category: "requests",
+    title: "Справка об обучении готова",
+    body: "Можно забирать в деканате ФЭИ, каб. 210. С собой — студенческий билет.",
+    href: "/requests/8",
+    at: "2026-11-13T10:10:00+09:00",
+    read: false,
+  },
+  {
+    login: "n.pavlov",
+    category: "deanery",
+    title: "Юридическая клиника",
+    body: "Набор волонтёров в юридическую клинику — заявления до 25 ноября в каб. 205 ЮФ.",
+    href: null,
+    at: "2026-11-12T14:30:00+09:00",
+    read: false,
+  },
+  {
+    login: "t.andreyeva",
+    category: "schedule",
+    title: "Изменение в расписании",
+    body: "У группы Ю-24-1 перенесена пара по международному праву. Смотрите расписание на неделю.",
+    href: "/schedule?view=week",
+    at: "2026-11-11T19:00:00+09:00",
+    read: true,
   },
 ];
