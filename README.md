@@ -8,7 +8,8 @@
 
 ## Статус
 
-Прототип готов локально (студент + сотрудник деканата). Выкладка на хостинг в РФ — [docs/deploy.md](docs/deploy.md). Ход работы — в [дневнике процесса](docs/ai-process/journal.md).
+Сайт в интернете (РФ, без VPN): **[https://argocabinet.tw1.su](https://argocabinet.tw1.su)** · Timeweb VPS + Docker + Caddy.  
+Инструкция деплоя — [docs/deploy.md](docs/deploy.md). Отчёт для жюри — [docs/ai-process/report.pdf](docs/ai-process/report.pdf). Ход работы — [дневник](docs/ai-process/journal.md).
 
 ## Как запустить локально
 

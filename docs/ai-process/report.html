@@ -292,17 +292,48 @@
 </section>
 
 <section>
-  <h2>7. Как смотреть прототип</h2>
-  <p><strong>Сайт:</strong> <a href="https://argocabinet.tw1.su/ru/login">https://argocabinet.tw1.su/ru/login</a></p>
+  <h2>7. Где смотреть подробности процесса</h2>
+  <p>В этом PDF — сжатая версия. Полный след работы с ИИ, все скриншоты этапов и исходные документы лежат в репозитории:</p>
   <table>
-    <thead><tr><th>Логин</th><th>Роль</th></tr></thead>
+    <thead><tr><th>Что</th><th>Путь в репозитории</th></tr></thead>
     <tbody>
-      <tr><td><code>s.nikolaeva</code></td><td>студент ИМИ (группа ПИ-24-1)</td></tr>
-      <tr><td>второй студент из README</td><td>другие данные / институт</td></tr>
-      <tr><td><code>dekanat.imi</code></td><td>сотрудник деканата ИМИ</td></tr>
+      <tr><td>Дневник этапов, промпты, ошибки ИИ</td><td><code>docs/ai-process/journal.md</code></td></tr>
+      <tr><td>Список ИИ-инструментов и сервисов</td><td><code>docs/ai-process/tools.md</code></td></tr>
+      <tr><td>Скриншоты по этапам (00…15)</td><td><code>docs/ai-process/screenshots/</code></td></tr>
+      <tr><td>Концепция продукта, БРС, экраны</td><td><code>docs/product.md</code></td></tr>
+      <tr><td>Опрос однокурсников</td><td><code>docs/research/survey.md</code></td></tr>
+      <tr><td>Безопасность простыми словами</td><td><code>docs/security.md</code></td></tr>
+      <tr><td>Архитектурные решения</td><td><code>docs/decisions.md</code></td></tr>
+      <tr><td>Чек-лист требований конкурса</td><td><code>docs/requirements.md</code></td></tr>
+      <tr><td>Инструкция деплоя (РФ, HTTPS)</td><td><code>docs/deploy.md</code></td></tr>
+      <tr><td>Исходник этого PDF</td><td><code>docs/ai-process/report.html</code></td></tr>
     </tbody>
   </table>
-  <p class="muted">Пароль всех демо-аккаунтов — один, задаётся при деплое (<code>SEED_DEMO_PASSWORD</code>). Передаём жюри в комментарии к работе, не публикуем в открытом отчёте.</p>
+  <p>Репозиторий: <a href="https://github.com/Aitalidzio/svfu-cabinet">https://github.com/Aitalidzio/svfu-cabinet</a></p>
+</section>
+
+<section>
+  <h2>8. Как смотреть прототип</h2>
+  <p><strong>Сайт:</strong> <a href="https://argocabinet.tw1.su/ru/login">https://argocabinet.tw1.su/ru/login</a></p>
+  <p>Пароль у <strong>всех</strong> аккаунтов один и тот же — передаём жюри в комментарии к работе (не в открытом PDF). Ниже полный список логинов.</p>
+  <table>
+    <thead><tr><th>Логин</th><th>Роль</th><th>Институт / группа</th></tr></thead>
+    <tbody>
+      <tr><td><code>s.nikolaeva</code></td><td>студент</td><td>ИМИ · ПИ-24-1</td></tr>
+      <tr><td><code>e.petrov</code></td><td>студент</td><td>ИМИ · ПИ-24-2</td></tr>
+      <tr><td><code>a.egorov</code></td><td>студент</td><td>ФТИ · Ф-25-2</td></tr>
+      <tr><td><code>m.semenova</code></td><td>студент</td><td>ФТИ · Ф-24-1</td></tr>
+      <tr><td><code>a.ivanov</code></td><td>студент</td><td>ФЭИ · ЭК-24-1</td></tr>
+      <tr><td><code>k.vasileva</code></td><td>студент</td><td>ФЭИ · ЭК-23-1</td></tr>
+      <tr><td><code>n.pavlov</code></td><td>студент</td><td>ЮФ · Ю-25-1</td></tr>
+      <tr><td><code>t.andreyeva</code></td><td>студент</td><td>ЮФ · Ю-24-1</td></tr>
+      <tr><td><code>dekanat.imi</code></td><td>сотрудник</td><td>ИМИ</td></tr>
+      <tr><td><code>dekanat.fti</code></td><td>сотрудник</td><td>ФТИ</td></tr>
+      <tr><td><code>dekanat.fei</code></td><td>сотрудник</td><td>ФЭИ</td></tr>
+      <tr><td><code>dekanat.uf</code></td><td>сотрудник</td><td>ЮФ</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">Удобный сценарий для жюри: <code>s.nikolaeva</code> (студент) → <code>dekanat.imi</code> (сотрудник того же института). Чужой id заявки даёт 404.</p>
   <p class="note">Сайт должен оставаться доступным из РФ без VPN до 28.11.2026.</p>
 </section>
 
