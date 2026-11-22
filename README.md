@@ -9,7 +9,9 @@
 ## Статус
 
 Сайт в интернете (РФ, без VPN): **[https://argocabinet.tw1.su](https://argocabinet.tw1.su)** · Timeweb VPS + Docker + Caddy.  
-Инструкция деплоя — [docs/deploy.md](docs/deploy.md). Отчёт для жюри — [docs/ai-process/report.pdf](docs/ai-process/report.pdf). Ход работы — [дневник](docs/ai-process/journal.md).
+Инструкция деплоя — [docs/deploy.md](docs/deploy.md). Отчёт для жюри — [docs/ai-process/report.pdf](docs/ai-process/report.pdf). Ход работы — [дневник](docs/ai-process/journal.md). Чек-лист конкурса — [docs/requirements.md](docs/requirements.md).
+
+**Статус:** работа сдана **22.11.2026 (МСК)** (сайт + репо + PDF + видео + демо-аккаунты). Сайт держим до **28.11.2026**.
 
 ## Как запустить локально
 
