@@ -674,3 +674,15 @@
 | ![Вход до](screenshots/15-mobile/before-login.jpg) ![Сегодня до](screenshots/15-mobile/before-today.jpg) | ![Вход после](screenshots/15-mobile/after-login.jpg) ![Сегодня после](screenshots/15-mobile/after-today.jpg) | ![Промпт](screenshots/15-mobile/prompt-mobile-fix.png) |
 
 **Предлагаемый коммит:** «Добавить скрины правки мобилки 360».
+
+---
+
+## Этап 20. PDF-отчёт и вычитка саха — 23.11.2026
+
+**Инструмент:** Cursor (Composer) + Playwright (генерация PDF).
+
+**Что сделали:**
+1. Капитан отметил якутский как вычитанный (`i18n-todo.md`).
+2. Собран отчёт жюри: `docs/ai-process/report.html` → `report.pdf` (проблема/опрос, инструменты, этапы, скрины, безопасность, ручная работа). Скрипт: `tools/make-report-pdf.mjs`.
+
+**Предлагаемый коммит:** «Добавить PDF-отчёт для жюри».

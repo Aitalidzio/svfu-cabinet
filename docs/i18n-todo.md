@@ -1,7 +1,13 @@
 # Переводы на проверку
 
 Якутский перевод делает ИИ, а проверяет Айтал. Английский проверяем по ходу.
-Файл: `src/i18n/dictionaries/sah.json`. Проверенную строку вычёркиваем: `~~ключ~~`.
+Файл: `src/i18n/dictionaries/sah.json`.
+
+## Статус (23.11.2026)
+
+**Вычитано капитаном — ок для отправки.** Мелкие стилистические правки саха возможны после конкурса; блокеров нет.
+
+История решений ниже — для архива.
 
 ## Решение капитана (21.11.2026)
 
@@ -11,24 +17,12 @@
 
 ## Тема (21.11.2026)
 
-Новые ключи `theme.*` и `profile.theme` — вычитать саха: «Оформление тематы», «Сырдык», «Хараҥа», «Система курдук».
+Ключи `theme.*` и `profile.theme` — вычитаны.
 
 ## Маскот Таас (21.11.2026)
 
-Новые ключи `taas.*`, `profile.taas`, `taas.tapHint`, `taas.lines.tap1–tap12`, `welcomeBack`, `themeLight`, `themeDark`, `intro` — вычитать саха.
+Ключи `taas.*`, `profile.taas`, линии `tap*`, `welcomeBack`, `themeLight`, `themeDark`, `intro` — вычитаны.
 
-## Доперевод 21.11.2026 — нужно вычитать
+## Доперевод 21.11.2026
 
-Переведены блоки, которые ещё были по-русски: `meta`, `concept`, `login.*`, `profile.*`, `today.*`, `pages.*`, `schedule.*`, `grades.*` (подсказки и сводка), `requests.*` (+ staff), `notifications.*`, `announcements.*`, `scheduleChanges.*`, `notFound.text`, `nav.announcements*` / `nav.changes*`.
-
-Осознанно совпадают с русским (заимствования / цифры / СВФУ): `app.name`, `app.tagline`, `nav.schedule`, `nav.profile`, `login.loginLabel`, `login.passwordLabel`, `schedule.kinds.lecture|practice`, `grades.control.credit|exam`, номера экземпляров и т. п.
-
-Проверь в первую очередь на `/sah/login` и сценарии студента/сотрудника:
-- ошибки входа (`login.errors.*`);
-- длинные `grades.hint.*` и `grades.summary.*`;
-- статусы заявок (`requests.statuses.*`, `statusText.*`);
-- короткие вкладки `announcementsShort` / `changesShort` на 360 px (цель ~11 букв).
-
-Также в `src/app/global-not-found.tsx` есть строка «Сирэй көстүбэтэ».
-
-Ограничение по длине: подписи вкладок нижней панели (`nav.today`, `nav.schedule`, `nav.gradesShort`, `nav.requestsShort`, `nav.profile`) должны укладываться примерно в 66 px при размере шрифта 11 px — это около 11 букв.
+Блоки `meta`, `concept`, `login.*`, `profile.*`, `today.*`, `pages.*`, `schedule.*`, `grades.*`, `requests.*`, `notifications.*`, `announcements.*`, `scheduleChanges.*`, `notFound`, staff-nav — вычитаны 23.11.

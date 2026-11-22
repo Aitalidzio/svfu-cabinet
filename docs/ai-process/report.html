@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Цифровой деканат СВФУ — отчёт о процессе (вайб-кодинг)</title>
+  <style>
+    @page { size: A4; margin: 16mm 14mm; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.45;
+      color: #0e1626;
+      max-width: 180mm;
+      margin: 0 auto;
+    }
+    h1 { font-size: 20pt; margin: 0 0 0.4em; line-height: 1.2; }
+    h2 { font-size: 13pt; margin: 1.4em 0 0.5em; border-bottom: 1.5px solid #1f55e6; padding-bottom: 0.2em; page-break-after: avoid; }
+    h3 { font-size: 11pt; margin: 1em 0 0.35em; page-break-after: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    a { color: #1f55e6; }
+    .muted { color: #586178; }
+    .cover {
+      min-height: 240mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      page-break-after: always;
+    }
+    .badge {
+      display: inline-block;
+      background: #e6edff;
+      color: #1f55e6;
+      font-weight: 600;
+      font-size: 9pt;
+      padding: 0.25em 0.7em;
+      border-radius: 999px;
+      margin-bottom: 1em;
+    }
+    .meta { margin-top: 2em; font-size: 10pt; }
+    .meta dt { color: #586178; margin-top: 0.6em; }
+    .meta dd { margin: 0.15em 0 0; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 0.6em 0 1em; }
+    th, td { border: 1px solid #dfe5ef; padding: 0.35em 0.5em; vertical-align: top; text-align: left; }
+    th { background: #f4f6fb; }
+    blockquote {
+      margin: 0.5em 0;
+      padding: 0.4em 0.8em;
+      border-left: 3px solid #6a3fe0;
+      background: #f4f6fb;
+      color: #0e1626;
+      font-size: 9.5pt;
+    }
+    .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0.6em 0 1em; page-break-inside: avoid; }
+    .shots.one { grid-template-columns: 1fr; }
+    .shots.three { grid-template-columns: 1fr 1fr 1fr; }
+    figure { margin: 0; page-break-inside: avoid; }
+    figure img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #dfe5ef;
+      border-radius: 6px;
+      display: block;
+    }
+    figcaption { font-size: 8.5pt; color: #586178; margin-top: 0.25em; }
+    ul.compact li { margin: 0.15em 0; }
+    .page-break { page-break-before: always; }
+    .note {
+      background: #fff1d6;
+      border: 1px solid #f5b451;
+      border-radius: 8px;
+      padding: 0.6em 0.8em;
+      font-size: 9.5pt;
+      margin: 0.8em 0;
+    }
+  </style>
+</head>
+<body>
+
+<section class="cover">
+  <span class="badge">Номинация «Вайб-кодинг» · Цифровой деканат будущего</span>
+  <h1>Цифровой деканат СВФУ</h1>
+  <p style="font-size:12pt;margin:0;">Концепт личного кабинета студента и сотрудника деканата</p>
+  <p class="muted" style="margin-top:0.6em;">Отчёт о процессе создания с помощью ИИ-ассистентов</p>
+  <dl class="meta">
+    <dt>Прототип</dt>
+    <dd><a href="https://argocabinet.tw1.su">https://argocabinet.tw1.su</a></dd>
+    <dt>Репозиторий</dt>
+    <dd><a href="https://github.com/Aitalidzio/svfu-cabinet">github.com/Aitalidzio/svfu-cabinet</a></dd>
+    <dt>Стек</dt>
+    <dd>Next.js 16 · React 19 · PostgreSQL · Drizzle · Docker · Caddy · Timeweb Cloud (РФ)</dd>
+    <dt>Языки интерфейса</dt>
+    <dd>русский · саха (якутский) · английский</dd>
+    <dt>Дата отчёта</dt>
+    <dd>22.11.2026 (МСК)</dd>
+  </dl>
+  <p class="note" style="margin-top:2em;">
+    Это концепт для конкурса, не официальный сервис СВФУ. Все ФИО, оценки и номера зачёток вымышленные.
+  </p>
+</section>
+
+<section>
+  <h2>1. Проблема и решение</h2>
+  <p>
+    Студенты СВФУ сейчас собирают учёбу из кусков: Excel с сайта, Telegram-бот, чат группы, личные вопросы преподавателям и очередь в деканат.
+    Перенос пары легко пропустить, баллы БРС часто видны только у препода, а за справкой приходится приходить дважды.
+  </p>
+  <p><strong>Что делает кабинет:</strong> одно место «что важно сейчас» — расписание с заметными изменениями, баллы с порогами («до допуска не хватает N»), заявки со статусом, уведомления, профиль. Отдельно — кабинет сотрудника института (очередь заявок, объявления, переносы).</p>
+
+  <h3>Опрос однокурсников (4 человека, ИМИ)</h3>
+  <p class="muted">Выборочно: знакомые и одногруппники + один первокурсник. ФИО не собирали.</p>
+  <ul class="compact">
+    <li>Расписание смотрят в Excel или Telegram — единого удобного места нет.</li>
+    <li>О переносах узнают от одногруппников; у 3 из 4 были «пришёл зря» или пропуск.</li>
+    <li>Баллы часто только у преподавателя; «сколько не хватает» неочевидно.</li>
+    <li>Справки: очередь и повторный визит на следующий день.</li>
+    <li>Суперфункция в опросе: баллы по всем предметам + нормальное расписание.</li>
+  </ul>
+  <blockquote>«Пропускал и зря тоже приходил, в основном от того, что одногруппники не предупредили…»</blockquote>
+  <blockquote>«Вот бы учёт баллов, а также удобное расписание, а то в Excel очень неудобно.»</blockquote>
+  <blockquote>«Интересно как вы якутский сделаете. Делайте.»</blockquote>
+  <p>Опрос <strong>подтвердил</strong> уже выбранное ядро (переносы, БРС-подсказки, заявки, три языка), а не добавил новые экраны постфактум.</p>
+</section>
+
+<section class="page-break">
+  <h2>2. ИИ-инструменты, IDE и сервисы</h2>
+  <table>
+    <thead><tr><th>Инструмент</th><th>Для чего</th><th>С когда</th></tr></thead>
+    <tbody>
+      <tr><td>Claude Code (Claude Opus 5.5) в Claude для Windows</td><td>Разбор положения, стек, код, документация для агентов, проверка</td><td>07.11</td></tr>
+      <tr><td>Cursor Agent (Composer)</td><td>Доводка с этапа заявок, маскот, деплой-инструкции, отчёт</td><td>13.11</td></tr>
+      <tr><td>Cursor GenerateImage</td><td>Черновые спрайты Тааса (заменены ручными SVG)</td><td>21.11</td></tr>
+      <tr><td>Playwright (временно)</td><td>Скриншоты экранов и растеризация спрайтов</td><td>13.11</td></tr>
+      <tr><td>Python + fontTools</td><td>Проверка якутских букв в шрифтах и контраста цветов</td><td>13.11</td></tr>
+      <tr><td>Node.js 24, create-next-app, GitHub</td><td>Сборка, каркас, версионирование (коммиты — человек)</td><td>весь проект</td></tr>
+      <tr><td>Timeweb Cloud + Docker + Caddy</td><td>VPS в РФ, Postgres, HTTPS</td><td>22.11</td></tr>
+    </tbody>
+  </table>
+  <p>Полный список и лицензии стороннего ПО — в репозитории: <code>docs/ai-process/tools.md</code>, <code>docs/licenses.md</code>.</p>
+</section>
+
+<section>
+  <h2>3. Как работали с ИИ (этапы)</h2>
+  <p>Подробный дневник — <code>docs/ai-process/journal.md</code>. Ниже — сжатый путь и типичные ошибки ИИ.</p>
+  <table>
+    <thead><tr><th>Этап</th><th>Суть промпта / задачи</th><th>Ошибка ИИ → правка человека</th></tr></thead>
+    <tbody>
+      <tr><td>0–1. Разбор и каркас</td><td>Положение конкурса → план, Next.js App Router, i18n</td><td>План начинал с БД до продуктовых решений → сначала product.md</td></tr>
+      <tr><td>2–3. Продукт и дизайн</td><td>Роли, БРС, палитра, шрифт с саха-буквами</td><td>Шрифты проверяли скриптом, не «на глаз»</td></tr>
+      <tr><td>4. Auth + DAL</td><td>Сессии, scrypt, доступ только через DAL</td><td>Одинаковая соль у паролей → тест базы поймал, исправили</td></tr>
+      <tr><td>5–10. Экраны</td><td>Расписание, баллы, заявки, уведомления, «Сегодня», сотрудник</td><td>Пороги БРС только в <code>lib/brs.ts</code> + тесты; чужой id → 404</td></tr>
+      <tr><td>11–14. Хостинг</td><td>Timeweb, Docker, Caddy, техдомен</td><td>Лимит LE на <code>*.tw1.ru</code> → зона <code>.tw1.su</code>; Docker обходил ufw → bind <code>127.0.0.1</code></td></tr>
+      <tr><td>15–17. Тема, Таас</td><td>Переключатель темы, маскот-алмаз</td><td>Hydration спрайтов, «залипание» срочных реплик</td></tr>
+      <tr><td>18–19. Опрос, мобилка</td><td>4 ответа; overflow 360; тогглы только в профиле/входе</td><td>Шапка телефона переполнялась семью кнопками 44px</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Правило команды:</strong> код пишет ИИ, коммиты и пуш делает человек; секреты в чат не кидаем.</p>
+</section>
+
+<section class="page-break">
+  <h2>4. Скриншоты пути</h2>
+
+  <h3>Вход и кабинет студента</h3>
+  <div class="shots">
+    <figure>
+      <img src="screenshots/04-auth/login-mobile.jpg" alt="Вход с телефона" />
+      <figcaption>Вход (мобилка)</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/09-today/home-top-mobile.jpg" alt="Экран Сегодня" />
+      <figcaption>«Сегодня» — что важно сейчас</figcaption>
+    </figure>
+  </div>
+  <div class="shots">
+    <figure>
+      <img src="screenshots/05-schedule/today-mobile-now.jpg" alt="Расписание" />
+      <figcaption>Расписание с текущей парой</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/06-grades/summary-mobile.jpg" alt="Баллы" />
+      <figcaption>Успеваемость: смысл баллов, не голые цифры</figcaption>
+    </figure>
+  </div>
+  <div class="shots">
+    <figure>
+      <img src="screenshots/07-requests/list-mobile.jpg" alt="Заявки" />
+      <figcaption>Заявки со статусами</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/08-notifications/feed-mobile.jpg" alt="Уведомления" />
+      <figcaption>Лента уведомлений</figcaption>
+    </figure>
+  </div>
+
+  <h3>Сотрудник деканата</h3>
+  <div class="shots">
+    <figure>
+      <img src="screenshots/10-staff/queue-mobile.jpg" alt="Очередь заявок" />
+      <figcaption>Очередь заявок института</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/10-staff/changes-mobile.jpg" alt="Изменения расписания" />
+      <figcaption>Перенос / замена пары</figcaption>
+    </figure>
+  </div>
+
+  <h3>Маскот Таас</h3>
+  <div class="shots three">
+    <figure>
+      <img src="screenshots/13-mascot/taas-sketch.png" alt="Набросок" />
+      <figcaption>Набросок команды</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/13-mascot/taas-today.png" alt="Таас на Сегодня" />
+      <figcaption>В кабинете</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/13-mascot/taas-sheet-darktheme.png" alt="Лист эмоций" />
+      <figcaption>Эмоции (тёмная обводка)</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="page-break">
+  <h3>Хостинг и мобилка: удачные / неудачные шаги</h3>
+  <div class="shots">
+    <figure>
+      <img src="screenshots/14-hosting/terminal-10-cert-fail-tw1-ru.png" alt="Ошибка сертификата" />
+      <figcaption>Неудача: лимит Let’s Encrypt на зоне *.tw1.ru</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/14-hosting/terminal-14-cert-obtained.png" alt="Сертификат получен" />
+      <figcaption>Успех: certificate obtained на *.tw1.su</figcaption>
+    </figure>
+  </div>
+  <div class="shots">
+    <figure>
+      <img src="screenshots/14-hosting/browser-https-today.png" alt="HTTPS кабинет" />
+      <figcaption>Боевой сайт по HTTPS</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/14-hosting/panel-timeweb-domain.png" alt="Панель Timeweb" />
+      <figcaption>Timeweb: сервер и техдомен</figcaption>
+    </figure>
+  </div>
+  <div class="shots">
+    <figure>
+      <img src="screenshots/15-mobile/before-today.jpg" alt="До правки" />
+      <figcaption>До: тогглы перекрывали шапку</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/15-mobile/after-today.jpg" alt="После правки" />
+      <figcaption>После: только логотип и колокольчик</figcaption>
+    </figure>
+  </div>
+  <div class="shots">
+    <figure>
+      <img src="screenshots/15-mobile/before-login.jpg" alt="Вход до" />
+      <figcaption>Вход до правки overflow</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/15-mobile/after-login.jpg" alt="Вход после" />
+      <figcaption>Вход после: переключатели отдельной строкой</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>5. Вход, данные и защита (простыми словами)</h2>
+  <ul class="compact">
+    <li>Данные в <strong>PostgreSQL</strong> на сервере. В браузере нет секретов приложения — только cookie сессии и настройки UI (язык, тема, Таас).</li>
+    <li>Пароль хранится как хеш <strong>scrypt</strong> с уникальной солью, не в открытом виде.</li>
+    <li>После входа — случайный токен в cookie (<strong>httpOnly</strong>, <strong>Secure</strong> на HTTPS, <strong>SameSite=Lax</strong>); в базе лежит хеш токена.</li>
+    <li>Неверный логин и неверный пароль дают одно сообщение; после 5 ошибок вход временно блокируется.</li>
+    <li>Данные читаются только через <strong>DAL</strong>: функции сами берут пользователя из сессии и <strong>не принимают userId от клиента</strong>.</li>
+    <li>Чужая заявка / чужой id → одна и та же <strong>404</strong>. Сотрудник видит только свой институт.</li>
+    <li>Секреты только в <code>.env*</code> (в gitignore). Демо-пароль не в коде и не в этом PDF.</li>
+  </ul>
+  <p>Подробнее: <code>docs/security.md</code>.</p>
+</section>
+
+<section>
+  <h2>6. Что делали вручную</h2>
+  <ul class="compact">
+    <li>Постановка задач, проверка результата, <strong>все коммиты и push</strong>.</li>
+    <li>Решения по продукту (роли, БРС, корпуса, якутский), вычитка саха.</li>
+    <li>Опрос однокурсников и формулировка вопросов.</li>
+    <li>Набросок маскота Тааса; отбор / замена ИИ-черновиков спрайтов.</li>
+    <li>Аккаунт Timeweb, SSH, Docker, Caddy, домен, пополнение баланса, проверка с телефона без VPN.</li>
+    <li>Скриншоты для отчёта и финальная сборка материалов жюри.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>7. Как смотреть прототип</h2>
+  <p><strong>Сайт:</strong> <a href="https://argocabinet.tw1.su/ru/login">https://argocabinet.tw1.su/ru/login</a></p>
+  <table>
+    <thead><tr><th>Логин</th><th>Роль</th></tr></thead>
+    <tbody>
+      <tr><td><code>s.nikolaeva</code></td><td>студент ИМИ (группа ПИ-24-1)</td></tr>
+      <tr><td>второй студент из README</td><td>другие данные / институт</td></tr>
+      <tr><td><code>dekanat.imi</code></td><td>сотрудник деканата ИМИ</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">Пароль всех демо-аккаунтов — один, задаётся при деплое (<code>SEED_DEMO_PASSWORD</code>). Передаём жюри в комментарии к работе, не публикуем в открытом отчёте.</p>
+  <p class="note">Сайт должен оставаться доступным из РФ без VPN до 28.11.2026.</p>
+</section>
+
+</body>
+</html>
