@@ -65,13 +65,13 @@ async function ScheduleView({ searchParams }: { searchParams: PageProps<"/[lang]
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <nav aria-label={t.viewLabel} className="flex rounded-full bg-surface-2 p-1">
+        <nav aria-label={t.viewLabel} className="flex max-w-full rounded-full bg-surface-2 p-1">
           {tabs.map((tab) => (
             <Link
               key={tab.view}
               href={tab.href}
               aria-current={tab.view === view ? "page" : undefined}
-              className={`grid min-h-10 min-w-20 place-items-center rounded-full px-4 text-sm font-semibold transition-colors ${
+              className={`grid min-h-10 min-w-0 flex-1 place-items-center rounded-full px-2 text-sm font-semibold transition-colors sm:min-w-20 sm:flex-none sm:px-4 ${
                 tab.view === view ? "bg-surface text-fg shadow-sm ring-1 ring-line" : "text-fg-muted hover:text-fg"
               }`}
             >

@@ -94,6 +94,7 @@ html[data-theme="dark"] {
 body {
   background: var(--canvas);
   color: var(--fg);
+  overflow-x: clip;
 }
 
 :focus-visible {

@@ -25,11 +25,11 @@ export function LogoMark({ className = "size-9" }: { className?: string }) {
 
 export function Logo({ name, tagline }: { name: string; tagline?: string }) {
   return (
-    <span className="flex items-center gap-2.5">
+    <span className="flex min-w-0 items-center gap-2.5">
       <LogoMark />
-      <span className="flex flex-col leading-none">
-        <span className="text-[17px] font-bold tracking-tight text-fg">{name}</span>
-        {tagline ? <span className="mt-1 text-xs text-fg-muted">{tagline}</span> : null}
+      <span className="flex min-w-0 flex-col leading-none">
+        <span className="truncate text-[17px] font-bold tracking-tight text-fg">{name}</span>
+        {tagline ? <span className="mt-1 truncate text-xs text-fg-muted">{tagline}</span> : null}
       </span>
     </span>
   );

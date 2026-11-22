@@ -34,7 +34,7 @@ export default async function LoginPage() {
   ];
 
   return (
-    <main className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+    <main className="grid min-h-dvh overflow-x-clip lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
       {/* Brand panel — desktop only */}
       <section className="bg-aurora relative isolate hidden overflow-hidden p-12 text-white lg:flex lg:flex-col">
         <svg
@@ -66,13 +66,13 @@ export default async function LoginPage() {
         </div>
       </section>
 
-      {/* Form */}
-      <section className="flex flex-col px-4 pb-6 pt-[max(1.5rem,env(safe-area-inset-top))] sm:px-8">
-        <div className="flex items-center justify-between gap-3">
-          <span className="lg:invisible">
+      {/* Form — switchers on their own row so 360px does not overflow past the logo */}
+      <section className="flex min-w-0 flex-col px-4 pb-6 pt-[max(1.5rem,env(safe-area-inset-top))] sm:px-8">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <span className="min-w-0 lg:invisible">
             <Logo name={dict.app.name} tagline={dict.app.tagline} />
           </span>
-          <div className="flex shrink-0 flex-wrap items-center justify-end gap-1">
+          <div className="flex max-w-full flex-wrap items-center gap-1 sm:justify-end">
             <LanguageSwitcher current={locale} label={dict.language.label} />
             <ThemeSwitcher labels={dict.theme} />
             <TaasToggle labels={dict.taas} />

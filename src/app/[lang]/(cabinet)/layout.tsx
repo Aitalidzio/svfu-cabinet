@@ -1,11 +1,8 @@
 import Link from "next/link";
 import { ConceptNote } from "@/components/concept-note";
 import { Logo, LogoMark } from "@/components/logo";
-import { LanguageSwitcher } from "@/components/shell/language-switcher";
 import { HeaderBell, RoleSidebarNav, RoleTabBar } from "@/components/shell/role-nav";
-import { ThemeSwitcher } from "@/components/shell/theme-switcher";
 import { TaasHost } from "@/components/taas/taas-host";
-import { TaasToggle } from "@/components/taas/taas-toggle";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">) {
@@ -13,7 +10,7 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
   const home = `/${locale}`;
 
   return (
-    <div className="min-h-dvh">
+    <div className="min-h-dvh overflow-x-clip">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-line bg-surface px-4 py-6 lg:flex">
         <Link href={home} className="rounded-xl px-2 py-1">
           <Logo name={dict.app.name} tagline={dict.app.tagline} />
@@ -22,11 +19,6 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
           <RoleSidebarNav locale={locale} dict={dict} />
         </nav>
         <div className="mt-auto space-y-3 px-1">
-          <LanguageSwitcher current={locale} label={dict.language.label} />
-          <div className="flex items-center gap-2">
-            <ThemeSwitcher labels={dict.theme} />
-            <TaasToggle labels={dict.taas} />
-          </div>
           <ConceptNote text={dict.concept.note} />
         </div>
       </aside>
@@ -37,10 +29,7 @@ export default async function CabinetLayout({ children }: LayoutProps<"/[lang]">
             <LogoMark className="size-8" />
             <span className="truncate text-[17px] font-bold tracking-tight">{dict.app.name}</span>
           </Link>
-          <div className="ml-auto flex shrink-0 items-center gap-1">
-            <LanguageSwitcher current={locale} label={dict.language.label} />
-            <ThemeSwitcher labels={dict.theme} />
-            <TaasToggle labels={dict.taas} />
+          <div className="ml-auto flex shrink-0 items-center">
             <HeaderBell locale={locale} dict={dict} />
           </div>
         </div>
