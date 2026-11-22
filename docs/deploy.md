@@ -68,7 +68,7 @@ EOF
 sudo systemctl reload caddy
 ```
 
-В `.env.deploy` можно оставить `PUBLISH_PORT=3000` и не открывать 3000 наружу в firewall — снаружи только 80/443 у Caddy.
+В `docker-compose.yml` порт приложения слушает только `127.0.0.1` (не весь интернет): иначе Docker обходит ufw и `http://IP:3000` открыт снаружи. Снаружи должны быть только 80/443 у Caddy.
 
 ## Firewall
 

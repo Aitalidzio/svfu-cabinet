@@ -21,8 +21,10 @@ services:
   web:
     build: .
     restart: unless-stopped
+    # Only localhost: Docker publishes 0.0.0.0 by default and bypasses ufw.
+    # Caddy on the host proxies 80/443 → 127.0.0.1:3000. Local smoke: http://localhost:3000
     ports:
-      - "${PUBLISH_PORT:-3000}:3000"
+      - "127.0.0.1:${PUBLISH_PORT:-3000}:3000"
     environment:
       DATABASE_URL: postgres://cabinet:${POSTGRES_PASSWORD}@db:5432/cabinet
       SEED_DEMO_PASSWORD: ${SEED_DEMO_PASSWORD:?set SEED_DEMO_PASSWORD in .env.deploy}
