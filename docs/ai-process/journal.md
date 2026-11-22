@@ -667,4 +667,10 @@
 2. Вход: переключатели на отдельной строке под логотипом (`overflow-x-clip`, `min-w-0`).
 3. Вкладки расписания на узком экране — `flex-1` вместо жёсткого `min-w-20`.
 
-**Предлагаемый коммит:** «Убрать переключатели из шапки и починить overflow на входе».
+**Скриншоты** (`docs/ai-process/screenshots/15-mobile/`):
+
+| До | После | Промпт |
+|---|---|---|
+| ![Вход до](screenshots/15-mobile/before-login.jpg) ![Сегодня до](screenshots/15-mobile/before-today.jpg) | ![Вход после](screenshots/15-mobile/after-login.jpg) ![Сегодня после](screenshots/15-mobile/after-today.jpg) | ![Промпт](screenshots/15-mobile/prompt-mobile-fix.png) |
+
+**Предлагаемый коммит:** «Добавить скрины правки мобилки 360».
