@@ -2,6 +2,8 @@
 
 Цель: сайт по HTTPS открывается из РФ до **28.11.2026**. Стек: Next.js + PostgreSQL в Docker.
 
+**Боевой адрес (22.11.2026):** [https://argocabinet.tw1.su](https://argocabinet.tw1.su) — Timeweb Cloud VPS, Caddy (Let’s Encrypt), техдомен `.tw1.su`.
+
 **Выбранный вариант:** VPS у [Timeweb Cloud](https://timeweb.cloud/) (или аналог Selectel / Yandex) + `docker compose`. Зарубежные Vercel/Netlify не используем как основной хостинг (решение №4).
 
 ## Что нужно от человека

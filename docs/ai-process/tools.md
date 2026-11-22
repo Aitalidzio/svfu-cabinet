@@ -19,3 +19,6 @@
 | Claude для Windows (вкладка Code) | IDE на этапах 0–6 |
 | Cursor | IDE с этапа 7 (заявки); коммиты по-прежнему делает человек |
 | Git + GitHub | Контроль версий; коммиты делает человек |
+| Timeweb Cloud (VPS) | Хостинг в РФ с 22.11: Ubuntu, Docker Compose, техдомен `argocabinet.tw1.su` |
+| Caddy | HTTPS (Let’s Encrypt) и reverse proxy на `127.0.0.1:3000` |
+| Docker + Docker Compose | Postgres 16 + Next.js в контейнерах на VPS |

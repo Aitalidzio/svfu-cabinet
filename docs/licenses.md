@@ -18,3 +18,6 @@
 | node-postgres (`pg`) | подключение к PostgreSQL на сервере | MIT | https://github.com/brianc/node-postgres |
 | `server-only` | защита серверного кода от попадания в браузер | MIT | https://www.npmjs.com/package/server-only |
 | tsx (только разработка) | запуск скриптов TypeScript | MIT | https://github.com/privatenumber/tsx |
+| PostgreSQL 16 (образ Docker) | база на VPS | PostgreSQL License | https://www.postgresql.org/about/licence/ |
+| Docker Engine + Compose | контейнеры app+db на VPS | Apache-2.0 | https://github.com/docker |
+| Caddy | HTTPS reverse proxy на VPS | Apache-2.0 | https://github.com/caddyserver/caddy |
