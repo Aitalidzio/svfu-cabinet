@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { ArrowLeft, Ban, CalendarCheck, CircleCheckBig, CircleX, MapPin, PartyPopper } from "lucide-react";
+import { ArrowLeft, Ban, CalendarCheck, CircleCheckBig, CircleX, MapPin, PartyPopper, SearchX } from "lucide-react";
+import { EmptyState } from "@/components/empty-state";
 import { StatusChip } from "@/components/requests/status-chip";
 import { StatusForm } from "@/components/requests/status-form";
 import { getDictionary, getLocale, type Dictionary } from "@/i18n/dictionaries";
@@ -10,7 +10,7 @@ import { REQUEST_CATALOG, type RequestStatus } from "@/lib/requests";
 import { getRequestForViewer, getRequestsAccess } from "@/server/dal/requests";
 import { cancelRequest } from "@/server/requests/actions";
 
-// Ownership / institute check runs before streaming so a foreign id gets a real HTTP 404.
+// Ownership / institute check may block; allow non-instant navigation for this segment.
 export const instant = false;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -31,15 +31,33 @@ const statusBox: Record<RequestStatus, string> = {
 
 export default async function RequestPage({ params, searchParams }: PageProps<"/[lang]/requests/[id]">) {
   const [{ id }, query] = await Promise.all([params, searchParams]);
-  const request = /^\d{1,9}$/.test(id) ? await getRequestForViewer(Number(id)) : null;
-  if (!request) notFound();
-
   const [dict, locale, { isStaff, isStudent, deanery }] = await Promise.all([
     getDictionary(),
     getLocale(),
     getRequestsAccess(),
   ]);
   const t = dict.requests;
+
+  // Same UI for missing and foreign ids (no existence leak). Render EmptyState here:
+  // `notFound()` under Cache Components left a blank main in this Next version.
+  const request = /^\d{1,9}$/.test(id) ? await getRequestForViewer(Number(id)) : null;
+  if (!request) {
+    return (
+      <EmptyState
+        icon={<SearchX className="size-7" aria-hidden />}
+        title={dict.notFound.title}
+        text={dict.notFound.text}
+        action={
+          <Link
+            href={`/${locale}/requests`}
+            className="inline-flex min-h-11 items-center rounded-full bg-primary px-5 font-semibold text-on-primary transition-opacity hover:opacity-90"
+          >
+            {t.back}
+          </Link>
+        }
+      />
+    );
+  }
   const spec = REQUEST_CATALOG[request.type];
   const optionLabel = (name: string, value: string) =>
     ((t.fields as Record<string, { options?: Record<string, string> }>)[name]?.options ?? {})[value] ?? value;

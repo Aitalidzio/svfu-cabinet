@@ -1,0 +1,18 @@
+OK	student_login	http://127.0.0.1:3000/ru
+OK	page_/ru/schedule	HTTP 200
+OK	page_/ru/grades	HTTP 200
+OK	page_/ru/requests	HTTP 200
+OK	page_/ru/notifications	HTTP 200
+OK	page_/ru/profile	HTTP 200
+OK	request_404	
+OK	logged_in_route_404	http://127.0.0.1:3000/ru/this-route-does-not-exist-xyz
+OK	concept_note	on profile
+OK	staff_login	http://127.0.0.1:3000/ru
+OK	staff_requests	http://127.0.0.1:3000/ru/requests
+OK	staff_announcements	
+OK	login_page	
+OK	login_error_ui	Неверный логин или пароль.
+OK	login_same_message_wrong_pw	
+OK	anon_unknown_to_login	proxy redirects (expected)
+
+failed=0
